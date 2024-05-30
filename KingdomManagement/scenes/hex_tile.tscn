@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://d13s0qfrgrv5e"]
+
+[ext_resource type="Texture2D" uid="uid://bslakh7diu41d" path="res://sprites/Hex Tile.png" id="1_u6q52"]
+[ext_resource type="Script" path="res://scripts/nodes/hex_tile.gd" id="2_kmwhq"]
+
+[node name="HexTile" type="Node2D"]
+script = ExtResource("2_kmwhq")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(136, 51, 136, -82, 0, -148, -136, -81, -136, 52, 0, 118)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_u6q52")
+
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_mouse_exited"]

@@ -1,0 +1,156 @@
+[gd_scene load_steps=3 format=3 uid="uid://ck4c48a6x7gcb"]
+
+[ext_resource type="Texture2D" uid="uid://bl7g7cw88f4gy" path="res://sprites/Money Symbol.png" id="1_o3frl"]
+[ext_resource type="Script" path="res://scripts/nodes/TileActionsMenu.gd" id="2_au1e4"]
+
+[node name="GUI" type="CanvasLayer"]
+
+[node name="TopBar" type="PanelContainer" parent="."]
+offset_right = 1920.0
+offset_bottom = 65.0
+
+[node name="MarginContainer" type="MarginContainer" parent="TopBar"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="MenuButtons" type="HBoxContainer" parent="TopBar/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Settings" type="Button" parent="TopBar/MarginContainer/MenuButtons"]
+layout_mode = 2
+text = "Settings"
+
+[node name="Army" type="Button" parent="TopBar/MarginContainer/MenuButtons"]
+layout_mode = 2
+text = "Army"
+
+[node name="Inventory" type="Button" parent="TopBar/MarginContainer/MenuButtons"]
+layout_mode = 2
+text = "Inventory"
+
+[node name="InfoPanel" type="HBoxContainer" parent="TopBar/MarginContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="GoldInfo" type="PanelContainer" parent="TopBar/MarginContainer/InfoPanel"]
+layout_mode = 2
+theme_type_variation = &"InfoBox"
+
+[node name="MarginContainer" type="MarginContainer" parent="TopBar/MarginContainer/InfoPanel/GoldInfo"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TopBar/MarginContainer/InfoPanel/GoldInfo/MarginContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="TopBar/MarginContainer/InfoPanel/GoldInfo/MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_o3frl")
+expand_mode = 2
+
+[node name="Value" type="Label" parent="TopBar/MarginContainer/InfoPanel/GoldInfo/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "0"
+
+[node name="TroopsInfo" type="PanelContainer" parent="TopBar/MarginContainer/InfoPanel"]
+layout_mode = 2
+theme_type_variation = &"InfoBox"
+
+[node name="MarginContainer" type="MarginContainer" parent="TopBar/MarginContainer/InfoPanel/TroopsInfo"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TopBar/MarginContainer/InfoPanel/TroopsInfo/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TopBar/MarginContainer/InfoPanel/TroopsInfo/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Troops:"
+
+[node name="Value" type="Label" parent="TopBar/MarginContainer/InfoPanel/TroopsInfo/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "0"
+
+[node name="CommandersInfo" type="PanelContainer" parent="TopBar/MarginContainer/InfoPanel"]
+layout_mode = 2
+theme_type_variation = &"InfoBox"
+
+[node name="MarginContainer" type="MarginContainer" parent="TopBar/MarginContainer/InfoPanel/CommandersInfo"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TopBar/MarginContainer/InfoPanel/CommandersInfo/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TopBar/MarginContainer/InfoPanel/CommandersInfo/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Commanders:"
+
+[node name="Value" type="Label" parent="TopBar/MarginContainer/InfoPanel/CommandersInfo/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "0"
+
+[node name="TurnInfo" type="PanelContainer" parent="TopBar/MarginContainer/InfoPanel"]
+layout_mode = 2
+theme_type_variation = &"InfoBox"
+
+[node name="MarginContainer" type="MarginContainer" parent="TopBar/MarginContainer/InfoPanel/TurnInfo"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TopBar/MarginContainer/InfoPanel/TurnInfo/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TopBar/MarginContainer/InfoPanel/TurnInfo/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Turn: "
+
+[node name="Value" type="Label" parent="TopBar/MarginContainer/InfoPanel/TurnInfo/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "0"
+
+[node name="TileActionsMenu" type="PanelContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -476.0
+offset_top = 65.0
+offset_bottom = 1080.0
+theme_type_variation = &"MneuPanel"
+script = ExtResource("2_au1e4")
+
+[node name="MarginContainer" type="MarginContainer" parent="TileActionsMenu"]
+layout_mode = 2
+
+[node name="Wrapper" type="VBoxContainer" parent="TileActionsMenu/MarginContainer"]
+layout_mode = 2
+
+[node name="MenuOptions" type="VBoxContainer" parent="TileActionsMenu/MarginContainer/Wrapper"]
+layout_mode = 2
+
+[node name="Cancel" type="Button" parent="TileActionsMenu/MarginContainer/Wrapper"]
+layout_mode = 2
+text = "Cancel"
