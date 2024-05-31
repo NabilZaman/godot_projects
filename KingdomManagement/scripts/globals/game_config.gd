@@ -1,4 +1,4 @@
-extends Object
+extends Node
 
 var investment_cost = {
 	Enums.TerritoryLevel.FORT: 100,

@@ -1,8 +1,12 @@
 class_name Action
 extends Resource
 
+func name() -> String:
+	return "NOTHING"
+
 func invoke() -> void:
-	pass
+	GameManager.consume_action()
+	Signals.close_tile_menu.emit()
 
 # Indicates whether this action is available
 func available() -> bool:
