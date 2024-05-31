@@ -5,8 +5,8 @@ var yinterval = 203
 
 var yoffset = 138
 
-var rows = 10
-var cols = 17 # The column width will alternate between cols and cols-1
+var rows = 2
+var cols = 2 # The column width will alternate between cols and cols-1
 
 const HEX_TILE = preload("res://scenes/hex_tile.tscn")
 
@@ -16,7 +16,7 @@ func _ready():
 		var ypos = row * yinterval + yoffset
 		var col_stagger = row % 2
 		var xoffset = xinterval / 2 if col_stagger == 0 else xinterval
-		for col in range(cols - col_stagger):
+		for col in range(cols):
 			var xpos = col * xinterval + xoffset
 			var pos = Vector2(xpos, ypos)
 			var new_tile = HEX_TILE.instantiate()
