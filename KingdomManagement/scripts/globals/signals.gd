@@ -11,4 +11,4 @@ signal commanders_changed(new_value: int)
 
 # Actions
 signal turn_changed(new_value: int)
-signal actions_changed(new_value: int)
+signal actions_changed()
