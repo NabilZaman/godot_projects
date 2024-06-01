@@ -7,10 +7,10 @@ func change_gold(delta: int) -> void:
 	self.player.gold += delta
 	Signals.gold_changed.emit(self.player.gold)
 
-func consume_action() -> void:
-	if self.player.actions > 0:
-		self.player.actions -= 1
-		Signals.actions_changed.emit(self.player.actions)
+func consume_action(action_cost: float) -> void:
+	if self.player.actions > action_cost:
+		self.player.actions -= action_cost
+		Signals.actions_changed.emit()
 
 func end_turn() -> void:
 	self.player.refresh_actions()
