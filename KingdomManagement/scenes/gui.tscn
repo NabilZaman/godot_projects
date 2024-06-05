@@ -1,15 +1,15 @@
 [gd_scene load_steps=13 format=3 uid="uid://ck4c48a6x7gcb"]
 
-[ext_resource type="Texture2D" uid="uid://bl7g7cw88f4gy" path="res://sprites/Money Symbol.png" id="1_o3frl"]
 [ext_resource type="Script" path="res://scripts/nodes/GoldInfo.gd" id="1_ohsbt"]
 [ext_resource type="Script" path="res://scenes/ActionsDisplay.gd" id="1_pphtj"]
+[ext_resource type="Texture2D" uid="uid://ditujoy8pbn4w" path="res://sprites/Icons/EnergyIconFull.png" id="2_5txm3"]
 [ext_resource type="Script" path="res://scripts/nodes/TileActionsMenu.gd" id="2_au1e4"]
-[ext_resource type="Texture2D" uid="uid://ditujoy8pbn4w" path="res://sprites/EnergyIconFull.png" id="2_g7sp5"]
-[ext_resource type="Texture2D" uid="uid://b4bh3bxedcbiq" path="res://sprites/EnergyIconEmpty.png" id="3_hj33m"]
+[ext_resource type="Texture2D" uid="uid://b4bh3bxedcbiq" path="res://sprites/Icons/EnergyIconEmpty.png" id="3_umbdk"]
 [ext_resource type="Script" path="res://scripts/nodes/TroopsInfo.gd" id="3_wrxr8"]
-[ext_resource type="Texture2D" uid="uid://bxtoq1h5h4bgs" path="res://sprites/EnergyIconHalf.png" id="4_fdt21"]
+[ext_resource type="Texture2D" uid="uid://bxtoq1h5h4bgs" path="res://sprites/Icons/EnergyIconHalf.png" id="4_ba8pv"]
 [ext_resource type="Script" path="res://scripts/nodes/CommandersInfo.gd" id="4_uu4n3"]
 [ext_resource type="Script" path="res://scenes/TurnInfo.gd" id="5_ihmtu"]
+[ext_resource type="Texture2D" uid="uid://bl7g7cw88f4gy" path="res://sprites/Icons/Money Symbol.png" id="6_xk2dl"]
 [ext_resource type="Script" path="res://scenes/EndTurn.gd" id="8_hi6as"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t122b"]
@@ -51,9 +51,9 @@ alignment = 2
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_t122b")
 script = ExtResource("1_pphtj")
-full_texture = ExtResource("2_g7sp5")
-empty_texture = ExtResource("3_hj33m")
-half_texture = ExtResource("4_fdt21")
+full_texture = ExtResource("2_5txm3")
+empty_texture = ExtResource("3_umbdk")
+half_texture = ExtResource("4_ba8pv")
 
 [node name="MarginContainer" type="MarginContainer" parent="TopBar/MarginContainer/InfoPanel/ActionsDisplay"]
 layout_mode = 2
@@ -82,7 +82,7 @@ layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="TopBar/MarginContainer/InfoPanel/GoldInfo/MarginContainer/HBoxContainer"]
 layout_mode = 2
-texture = ExtResource("1_o3frl")
+texture = ExtResource("6_xk2dl")
 expand_mode = 2
 
 [node name="Value" type="Label" parent="TopBar/MarginContainer/InfoPanel/GoldInfo/MarginContainer/HBoxContainer"]

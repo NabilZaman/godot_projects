@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bl7g7cw88f4gy"
-path="res://.godot/imported/Money Symbol.png-b8dd37c8d46dcb8f0fd49f829af7074f.ctex"
+uid="uid://twxqixyirt34"
+path="res://.godot/imported/Brown Hex.png-f5a287a5b28246d331aa7eae80063b03.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/Money Symbol.png"
-dest_files=["res://.godot/imported/Money Symbol.png-b8dd37c8d46dcb8f0fd49f829af7074f.ctex"]
+source_file="res://sprites/Tiles/Brown Hex.png"
+dest_files=["res://.godot/imported/Brown Hex.png-f5a287a5b28246d331aa7eae80063b03.ctex"]
 
 [params]
 
