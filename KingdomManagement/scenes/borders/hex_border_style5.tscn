@@ -1,0 +1,42 @@
+[gd_scene load_steps=8 format=3 uid="uid://bl2wp87w4wdry"]
+
+[ext_resource type="Script" path="res://scenes/borders/hex_border.gd" id="1_7vtlj"]
+[ext_resource type="Texture2D" uid="uid://ddgqayql1lis5" path="res://sprites/Borders/Style5/Border1.png" id="2_qgvqf"]
+[ext_resource type="Texture2D" uid="uid://b1ohm2ayxw42g" path="res://sprites/Borders/Style5/Border2.png" id="3_kbbdb"]
+[ext_resource type="Texture2D" uid="uid://dhcp8yim8ghku" path="res://sprites/Borders/Style5/Border3.png" id="4_dp5rj"]
+[ext_resource type="Texture2D" uid="uid://ch0qn63w1mi3a" path="res://sprites/Borders/Style5/border4.png" id="5_0hunp"]
+[ext_resource type="Texture2D" uid="uid://dakckeyc7ades" path="res://sprites/Borders/Style5/Border5.png" id="6_uiiri"]
+[ext_resource type="Texture2D" uid="uid://qrikh3r6078k" path="res://sprites/Borders/Style5/Border6.png" id="7_ar5sr"]
+
+[node name="HexBorder" type="Node2D"]
+script = ExtResource("1_7vtlj")
+
+[node name="border1" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 2
+texture = ExtResource("2_qgvqf")
+
+[node name="border2" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 2
+texture = ExtResource("3_kbbdb")
+
+[node name="border3" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 2
+texture = ExtResource("4_dp5rj")
+
+[node name="border4" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 2
+texture = ExtResource("5_0hunp")
+
+[node name="border5" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 2
+texture = ExtResource("6_uiiri")
+
+[node name="border6" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 2
+texture = ExtResource("7_ar5sr")

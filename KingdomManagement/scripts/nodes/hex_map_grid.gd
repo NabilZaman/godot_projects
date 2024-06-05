@@ -1,25 +1,32 @@
 extends Node2D
 
-var xinterval = 278
-var yinterval = 203
-
-var yoffset = 138
-
-var rows = 2
-var cols = 2 # The column width will alternate between cols and cols-1
+var xmin := -15
+var xmax := 15
+var ymin := -15
+var ymax := 15
 
 const HEX_TILE = preload("res://scenes/hex_tile.tscn")
 
-# Called when the node enters the scene tree for the first time.
+signal hover_signal
+
 func _ready():
-	for row in range(rows):
-		var ypos = row * yinterval + yoffset
-		var col_stagger = row % 2
-		var xoffset = xinterval / 2 if col_stagger == 0 else xinterval
-		for col in range(cols):
-			var xpos = col * xinterval + xoffset
-			var pos = Vector2(xpos, ypos)
-			var new_tile = HEX_TILE.instantiate()
-			new_tile.position = pos
-			self.add_child(new_tile)
-			
+	hover_signal.connect(fake_hover)
+	fill_boundary()
+
+func fill_boundary() -> void:
+	print("Hello?")
+	for x in range(xmin, xmax):
+		for y in range(ymin, ymax):
+			var xpos = 2 * x + (y % 2)
+			var ypos = y
+			var grid_pos = GridPosition.new(xpos, ypos)
+			print("Placing tile at " + str(grid_pos.as_vector()))
+			if not HexGrid.tile_present(grid_pos):
+				var tile = HEX_TILE.instantiate()
+				tile.setup(grid_pos, Enums.BorderStyles.STYLE1, Enums.TileStyles.BLUE, hover_signal, null)
+				#tile.hex_presentation.set_borders([0, 1, 2, 3, 4, 5])
+				HexGrid.place_tile(tile, false)
+				self.add_child(tile)
+
+func fake_hover():
+	Signals.map_focus_changed.emit(null)

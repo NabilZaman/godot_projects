@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://d13s0qfrgrv5e"]
 
 [ext_resource type="Script" path="res://scripts/nodes/hex_tile.gd" id="1_ielfx"]
-[ext_resource type="Texture2D" uid="uid://bslakh7diu41d" path="res://sprites/Hex Tile.png" id="1_u6q52"]
+[ext_resource type="PackedScene" uid="uid://r6u4owpcq0qu" path="res://scenes/hex_presentation.tscn" id="2_w4r5g"]
 
 [node name="HexTile" type="Node2D"]
 script = ExtResource("1_ielfx")
@@ -9,10 +9,9 @@ script = ExtResource("1_ielfx")
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
-polygon = PackedVector2Array(136, 51, 136, -82, 0, -148, -136, -81, -136, 52, 0, 118)
+polygon = PackedVector2Array(138, 52, 138, -83, 0, -151, -140, -83, -140, 52, -1, 120)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_u6q52")
+[node name="HexPresentation" parent="." instance=ExtResource("2_w4r5g")]
 
 [connection signal="input_event" from="Area2D" to="." method="on_click"]
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_mouse_entered"]

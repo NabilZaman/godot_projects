@@ -22,6 +22,7 @@ Enums="*res://scripts/globals/enums.gd"
 GameConfig="*res://scripts/globals/game_config.gd"
 Signals="*res://scripts/globals/signals.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
+HexGrid="*res://scripts/globals/hex_grid.gd"
 
 [dialogic]
 
