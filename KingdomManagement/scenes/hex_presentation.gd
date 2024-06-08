@@ -3,14 +3,12 @@ extends Node2D
 
 var hex_border: HexBorder
 @onready var tile: Sprite2D = $tile
-var hover_displacement: Vector2
+var hover_displacement := Vector2(0, GameConfig.tile_hover_distance)
 const border_pos = Vector2(0, -16)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# Default Style
-	set_border_style(Enums.BorderStyles.STYLE1)
-	hover_displacement = Vector2(0, GameConfig.tile_hover_distance)
+	pass
 
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -30,9 +28,10 @@ func deselect() -> void:
 		self.translate(-hover_displacement)
 
 func set_borders(visible_segments: Array[int]) -> void:
-	for i in range(6):
-		var is_visible = i in visible_segments
-		self.hex_border.set_segment(i, is_visible)
+	if self.hex_border != null:
+		for i in range(6):
+			var is_visible = i in visible_segments
+			self.hex_border.set_segment(i, is_visible)
 
 func set_border_style(style: PackedScene) -> void:
 	# remove existing border, if any
@@ -44,6 +43,8 @@ func set_border_style(style: PackedScene) -> void:
 	self.hex_border.position = border_pos
 	self.add_child(hex_border)
 
-func set_tile(style: Resource) -> void:
-	self.tile.texture = style
-	
+func set_tile(tile_type: TileType) -> void:
+	self.tile.texture = tile_type.texture()
+	for embelishment in tile_type.embelishments():
+		self.add_child(embelishment)
+

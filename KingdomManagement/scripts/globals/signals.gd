@@ -17,4 +17,4 @@ signal actions_changed()
 signal register_hex(hex_tile: HexTile)
 
 # Animations
-signal map_focus_changed(province: Province)
+signal map_focus_changed(region: Region)
