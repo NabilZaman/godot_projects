@@ -1,7 +1,6 @@
 class_name HexTile
 extends Node2D
 
-var territory: Territory = Territory.new("", Enums.TerritoryOwner.NPC)
 @onready var hex_presentation: HexPresentation = $HexPresentation
 const ROLLING_WAVE = preload("res://scenes/rolling_wave.tscn")
 
@@ -36,13 +35,13 @@ func setup(grid_pos: GridPosition, border_style: PackedScene, tile_type: TileTyp
 func on_click(viewport: Node, event: InputEvent, shape_idx: int):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
 		if click_signal:
-			click_signal.emit()
+			click_signal.emit(self)
 		#print(self.name + ": You clicked me!")
 
 func _on_mouse_entered():
 	#print(self.name + ": hovered")
 	if hover_signal:
-		hover_signal.emit()
+		hover_signal.emit(self)
 
 func hover() -> void:
 	hex_presentation.select()
@@ -61,7 +60,8 @@ func update_borders(border_style: PackedScene = null) -> void:
 			border_placements.append(i)
 			#TODO: Handle bordering regions owned by the same kingdom differently
 	hex_presentation.set_borders(border_placements)
-	# draw the appropriate borders based on your neighbor information
-	# this requires a reference to your parent region
-	
+
+# Returns the list of actions available to perform on this tile
+func get_actions() -> Array[TileAction]:
+	return []
 
