@@ -8,8 +8,8 @@ var region_name: String
 var kingdom: Kingdom
 var selectable: bool
 
-signal click_signal()
-signal hover_signal(enabled: bool)
+signal click_signal(tile: HexTile)
+signal hover_signal(tile: HexTile)
 
 func _ready() -> void:
 	hover_signal.connect(on_tile_hover)
@@ -23,12 +23,10 @@ func add_hex(grid_pos: GridPosition, border_style: PackedScene, tile_type: TileT
 	HexGrid.place_tile(tile)
 	self.add_child(tile)
 
-func on_click() -> void:
-	# TODO: Probably get rid of this territory thing
-	var territory: Territory = Territory.new("", Enums.TerritoryOwner.NPC)
-	Signals.open_tile_menu.emit(territory)
+func on_click(tile: HexTile) -> void:
+	Signals.open_tile_menu.emit(tile)
 
-func on_tile_hover():
+func on_tile_hover(tile: HexTile):
 	Signals.map_focus_changed.emit(self)
 
 func on_hover(region: Region) -> void:
@@ -39,10 +37,11 @@ func on_hover(region: Region) -> void:
 		for tile in self.get_children():
 			tile.unhover()
 
+# Returns the list of actions available to perform on this region
+func get_actions() -> Array[RegionAction]:
+	return []
 
-# owner, border style (get from owner?), name, tile configs
 # needs to have 1 capital, needs to have # of forts = level of province/capital
-
 func _init(name: String, kingdom: Kingdom, pos: Array, selectable: bool, tiles: Array[TileConfig]) -> void:
 	self.region_name = name
 	self.kingdom = kingdom

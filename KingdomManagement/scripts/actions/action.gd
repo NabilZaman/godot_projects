@@ -15,3 +15,9 @@ func invoke() -> void:
 func available() -> bool:
 	return false
 
+func as_button() -> Button:
+	var button = Button.new()
+	button.text = self.name()
+	button.pressed.connect(self.invoke)
+	return button
+

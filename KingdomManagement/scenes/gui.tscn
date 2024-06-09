@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/nodes/GoldInfo.gd" id="1_ohsbt"]
 [ext_resource type="Script" path="res://scenes/ActionsDisplay.gd" id="1_pphtj"]
 [ext_resource type="Texture2D" uid="uid://ditujoy8pbn4w" path="res://sprites/Icons/EnergyIconFull.png" id="2_5txm3"]
-[ext_resource type="Script" path="res://scripts/nodes/TileActionsMenu.gd" id="2_au1e4"]
+[ext_resource type="Script" path="res://scripts/nodes/ActionsMenu.gd" id="2_au1e4"]
 [ext_resource type="Texture2D" uid="uid://b4bh3bxedcbiq" path="res://sprites/Icons/EnergyIconEmpty.png" id="3_umbdk"]
 [ext_resource type="Script" path="res://scripts/nodes/TroopsInfo.gd" id="3_wrxr8"]
 [ext_resource type="Texture2D" uid="uid://bxtoq1h5h4bgs" path="res://sprites/Icons/EnergyIconHalf.png" id="4_ba8pv"]
@@ -170,7 +170,7 @@ layout_mode = 2
 text = "END TURN"
 script = ExtResource("8_hi6as")
 
-[node name="TileActionsMenu" type="PanelContainer" parent="."]
+[node name="ActionsMenu" type="PanelContainer" parent="."]
 visible = false
 anchors_preset = 1
 anchor_left = 1.0
@@ -181,18 +181,27 @@ offset_bottom = 1080.0
 theme_type_variation = &"MneuPanel"
 script = ExtResource("2_au1e4")
 
-[node name="MarginContainer" type="MarginContainer" parent="TileActionsMenu"]
+[node name="MarginContainer" type="MarginContainer" parent="ActionsMenu"]
 layout_mode = 2
 
-[node name="Wrapper" type="VBoxContainer" parent="TileActionsMenu/MarginContainer"]
+[node name="Wrapper" type="VBoxContainer" parent="ActionsMenu/MarginContainer"]
 layout_mode = 2
 
-[node name="MenuOptions" type="VBoxContainer" parent="TileActionsMenu/MarginContainer/Wrapper"]
+[node name="MenuOptions" type="VBoxContainer" parent="ActionsMenu/MarginContainer/Wrapper"]
 layout_mode = 2
 
-[node name="Cancel" type="Button" parent="TileActionsMenu/MarginContainer/Wrapper"]
+[node name="GlobalOptions" type="VBoxContainer" parent="ActionsMenu/MarginContainer/Wrapper/MenuOptions"]
+layout_mode = 2
+
+[node name="RegionOptions" type="VBoxContainer" parent="ActionsMenu/MarginContainer/Wrapper/MenuOptions"]
+layout_mode = 2
+
+[node name="TileOptions" type="VBoxContainer" parent="ActionsMenu/MarginContainer/Wrapper/MenuOptions"]
+layout_mode = 2
+
+[node name="Cancel" type="Button" parent="ActionsMenu/MarginContainer/Wrapper"]
 layout_mode = 2
 text = "CANCEL"
 
 [connection signal="pressed" from="TopBar/MarginContainer/InfoPanel/EndTurn" to="TopBar/MarginContainer/InfoPanel/EndTurn" method="_on_pressed"]
-[connection signal="pressed" from="TileActionsMenu/MarginContainer/Wrapper/Cancel" to="TileActionsMenu" method="on_close"]
+[connection signal="pressed" from="ActionsMenu/MarginContainer/Wrapper/Cancel" to="ActionsMenu" method="on_close"]

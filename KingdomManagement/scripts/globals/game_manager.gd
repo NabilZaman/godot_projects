@@ -13,6 +13,10 @@ func consume_action(action_cost: float) -> void:
 		self.player.actions -= action_cost
 		Signals.actions_changed.emit()
 
+# Returns the list of global actions available
+func get_actions() -> Array[GlobalAction]:
+	return []
+
 func end_turn() -> void:
 	self.player.refresh_actions()
 	self.turn_count += 1
