@@ -27,11 +27,11 @@ func deselect() -> void:
 		self.selected = false
 		self.translate(-hover_displacement)
 
-func set_borders(visible_segments: Array[int]) -> void:
+func set_borders(segment_visibility: Array[float]) -> void:
 	if self.hex_border != null:
 		for i in range(6):
-			var is_visible = i in visible_segments
-			self.hex_border.set_segment(i, is_visible)
+			var opacity = segment_visibility[i]
+			self.hex_border.set_segment(i, opacity)
 
 func set_border_style(style: PackedScene) -> void:
 	# remove existing border, if any

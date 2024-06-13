@@ -20,5 +20,10 @@ func _ready() -> void:
 		border_6,
 	]
 
-func set_segment(segment_id: int, value: bool) -> void:
-	segment_sprites[segment_id].visible = value
+func set_segment(segment_id: int, value: float) -> void:
+	var border_segment = segment_sprites[segment_id]
+	if value > 0:
+		border_segment.visible = true
+		border_segment.modulate.a = value
+	else:
+		border_segment.visible = false

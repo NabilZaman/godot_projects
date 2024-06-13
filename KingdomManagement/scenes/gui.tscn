@@ -184,24 +184,46 @@ script = ExtResource("2_au1e4")
 [node name="MarginContainer" type="MarginContainer" parent="ActionsMenu"]
 layout_mode = 2
 
-[node name="Wrapper" type="VBoxContainer" parent="ActionsMenu/MarginContainer"]
+[node name="Layout" type="VBoxContainer" parent="ActionsMenu/MarginContainer"]
 layout_mode = 2
 
-[node name="MenuOptions" type="VBoxContainer" parent="ActionsMenu/MarginContainer/Wrapper"]
+[node name="RegionLabel" type="Label" parent="ActionsMenu/MarginContainer/Layout"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Region"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Interstitial Label" type="Label" parent="ActionsMenu/MarginContainer/Layout"]
+layout_mode = 2
+text = "In The"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Kingdom Label" type="Label" parent="ActionsMenu/MarginContainer/Layout"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "kingdom"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="MenuOptions" type="VBoxContainer" parent="ActionsMenu/MarginContainer/Layout"]
 layout_mode = 2
 
-[node name="GlobalOptions" type="VBoxContainer" parent="ActionsMenu/MarginContainer/Wrapper/MenuOptions"]
+[node name="GlobalOptions" type="VBoxContainer" parent="ActionsMenu/MarginContainer/Layout/MenuOptions"]
 layout_mode = 2
 
-[node name="RegionOptions" type="VBoxContainer" parent="ActionsMenu/MarginContainer/Wrapper/MenuOptions"]
+[node name="RegionOptions" type="VBoxContainer" parent="ActionsMenu/MarginContainer/Layout/MenuOptions"]
 layout_mode = 2
 
-[node name="TileOptions" type="VBoxContainer" parent="ActionsMenu/MarginContainer/Wrapper/MenuOptions"]
+[node name="TileOptions" type="VBoxContainer" parent="ActionsMenu/MarginContainer/Layout/MenuOptions"]
 layout_mode = 2
 
-[node name="Cancel" type="Button" parent="ActionsMenu/MarginContainer/Wrapper"]
+[node name="Cancel" type="Button" parent="ActionsMenu/MarginContainer/Layout"]
 layout_mode = 2
 text = "CANCEL"
 
 [connection signal="pressed" from="TopBar/MarginContainer/InfoPanel/EndTurn" to="TopBar/MarginContainer/InfoPanel/EndTurn" method="_on_pressed"]
-[connection signal="pressed" from="ActionsMenu/MarginContainer/Wrapper/Cancel" to="ActionsMenu" method="on_close"]
+[connection signal="pressed" from="ActionsMenu/MarginContainer/Layout/Cancel" to="ActionsMenu" method="on_close"]
