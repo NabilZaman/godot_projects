@@ -8,6 +8,10 @@ var region_name: String
 var kingdom: Kingdom
 var selectable: bool
 
+var tiles: Array[HexTile]
+var capital: CapitalFeature
+var forts: Array[FortFeature] = []
+
 signal click_signal(tile: HexTile)
 signal hover_signal(tile: HexTile)
 
@@ -17,25 +21,32 @@ func _ready() -> void:
 		click_signal.connect(on_click)
 		Signals.map_focus_changed.connect(on_hover)
 
-func add_hex(grid_pos: GridPosition, border_style: PackedScene, tile_type: TileType, layer: int) -> void:
+func add_hex(grid_pos: GridPosition, border_style: PackedScene, tile_type: TileType, layer: int, feature_type) -> void:
 	var tile = HEX_TILE.instantiate()
-	tile.setup(grid_pos, border_style, tile_type, self, layer, hover_signal, click_signal)
+	tile.setup(grid_pos, border_style, tile_type, self, layer, feature_type, hover_signal, click_signal)
 	HexGrid.place_tile(tile)
+	self.tiles.append(tile)
 	self.add_child(tile)
+	if tile.feature != null:
+		if tile.feature is CapitalFeature:
+			self.capital = tile.feature
+		elif tile.feature is FortFeature:
+			self.forts.append(tile.feature)
+	
 
 func on_click(tile: HexTile) -> void:
 	Signals.open_tile_menu.emit(tile)
 
 func on_tile_hover(tile: HexTile):
-	Signals.map_focus_changed.emit(self)
+	Signals.map_focus_changed.emit(tile)
 
-func on_hover(region: Region) -> void:
-	if region == self:
-		for tile in self.get_children():
-			tile.hover()
+func on_hover(tile: HexTile) -> void:
+	if tile.region == self:
+		for child in self.get_children():
+			child.hover(tile)
 	else:
-		for tile in self.get_children():
-			tile.unhover()
+		for child in self.get_children():
+			child.unhover()
 
 # Returns the list of actions available to perform on this region
 func get_actions() -> Array[RegionAction]:
@@ -49,6 +60,10 @@ func _init(name: String, kingdom: Kingdom, pos: Array, selectable: bool, tiles: 
 	var y_offset = pos[1]
 	self.selectable = selectable
 	for tile in tiles:
-		self.add_hex(GridPosition.new(tile.grid_x + x_offset, tile.grid_y + y_offset), kingdom.border_style, tile.tile_type, tile.layer)
+		self.add_hex(GridPosition.new(tile.grid_x + x_offset, tile.grid_y + y_offset), kingdom.border_style, tile.tile_type, tile.layer, tile.feature_type)
+	if self.capital == null:
+		print("Warning: " + self.region_name + " is missing a capital!")
+	if self.forts.is_empty():
+		print("Warning: " + self.region_name + " has no forts!")
 	#TODO: should we validate capitals/forts?
 

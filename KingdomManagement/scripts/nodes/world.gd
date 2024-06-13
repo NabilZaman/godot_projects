@@ -7,28 +7,28 @@ var regionA_tiles: Array[TileConfig] = [
 	TileConfig.new([1, 1], Enums.Tiles.GRASS),
 	TileConfig.new([-4, 2], Enums.Tiles.GRASS),
 	TileConfig.new([-2, 2], Enums.Tiles.GRASS),
-	TileConfig.new([0, 2], Enums.Tiles.GRASS),
-	TileConfig.new([2, 2], Enums.Tiles.GRASS),
+	TileConfig.new([0, 2], Enums.Tiles.GRASS, CapitalFeature),
+	TileConfig.new([2, 2], Enums.Tiles.GRASS, FortFeature),
 	TileConfig.new([-3, 3], Enums.Tiles.GRASS),
 	TileConfig.new([-1, 3], Enums.Tiles.GRASS),
 	TileConfig.new([1, 3], Enums.Tiles.GRASS),
 	TileConfig.new([3, 3], Enums.Tiles.GRASS),
-	TileConfig.new([5, 3], Enums.Tiles.GRASS),
+	TileConfig.new([5, 3], Enums.Tiles.GRASS, WoodsFeature),
 	TileConfig.new([-2, 4], Enums.Tiles.GRASS),
-	TileConfig.new([-0, 4], Enums.Tiles.GRASS),
+	TileConfig.new([0, 4], Enums.Tiles.GRASS),
 	TileConfig.new([2, 4], Enums.Tiles.GRASS),
-	TileConfig.new([4, 4], Enums.Tiles.GRASS),
+	TileConfig.new([4, 4], Enums.Tiles.GRASS, WoodsFeature),
 	TileConfig.new([-1, 5], Enums.Tiles.GRASS),
 ]
 
 var regionB_tiles: Array[TileConfig] = [
 	TileConfig.new([1, 5], Enums.Tiles.GRASS),
 	TileConfig.new([3, 5], Enums.Tiles.GRASS),
-	TileConfig.new([0, 6], Enums.Tiles.GRASS),
+	TileConfig.new([0, 6], Enums.Tiles.GRASS, FortFeature),
 	TileConfig.new([2, 6], Enums.Tiles.GRASS),
 	TileConfig.new([4, 6], Enums.Tiles.GRASS),
 	TileConfig.new([6, 6], Enums.Tiles.GRASS),
-	TileConfig.new([1, 7], Enums.Tiles.GRASS),
+	TileConfig.new([1, 7], Enums.Tiles.GRASS, CapitalFeature),
 	TileConfig.new([3, 7], Enums.Tiles.GRASS),
 	TileConfig.new([5, 7], Enums.Tiles.GRASS),
 	TileConfig.new([7, 7], Enums.Tiles.GRASS),
@@ -57,8 +57,8 @@ var regionC_tiles: Array[TileConfig] = [
 	TileConfig.new([9, -3], Enums.Tiles.GRASS),
 	TileConfig.new([0, -2], Enums.Tiles.GRASS),
 	TileConfig.new([2, -2], Enums.Tiles.GRASS),
-	TileConfig.new([4, -2], Enums.Tiles.GRASS),
-	TileConfig.new([6, -2], Enums.Tiles.GRASS),
+	TileConfig.new([4, -2], Enums.Tiles.GRASS, FortFeature),
+	TileConfig.new([6, -2], Enums.Tiles.GRASS, CapitalFeature),
 	TileConfig.new([8, -2], Enums.Tiles.GRASS),
 	TileConfig.new([10, -2], Enums.Tiles.GRASS),
 	TileConfig.new([-1, -1], Enums.Tiles.GRASS),
@@ -69,7 +69,7 @@ var regionC_tiles: Array[TileConfig] = [
 	TileConfig.new([9, -1], Enums.Tiles.GRASS),
 	TileConfig.new([11, -1], Enums.Tiles.GRASS),
 	TileConfig.new([-2, 0], Enums.Tiles.GRASS),
-	TileConfig.new([2, 0], Enums.Tiles.GRASS),
+	TileConfig.new([2, 0], Enums.Tiles.GRASS, FortFeature),
 	TileConfig.new([4, 0], Enums.Tiles.GRASS),
 	TileConfig.new([6, 0], Enums.Tiles.GRASS),
 	TileConfig.new([8, 0], Enums.Tiles.GRASS),
@@ -97,7 +97,7 @@ var regionD_tiles: Array[TileConfig] = [
 	TileConfig.new([9, -7], Enums.Tiles.GRASS),
 	TileConfig.new([11, -7], Enums.Tiles.GRASS),
 	TileConfig.new([13, -7], Enums.Tiles.GRASS),
-	TileConfig.new([15, -7], Enums.Tiles.GRASS),
+	TileConfig.new([15, -7], Enums.Tiles.GRASS, CapitalFeature),
 	TileConfig.new([17, -7], Enums.Tiles.GRASS),
 	TileConfig.new([19, -7], Enums.Tiles.GRASS),
 	TileConfig.new([8, -6], Enums.Tiles.GRASS),
@@ -107,7 +107,7 @@ var regionD_tiles: Array[TileConfig] = [
 	TileConfig.new([16, -6], Enums.Tiles.GRASS),
 	TileConfig.new([18, -6], Enums.Tiles.GRASS),
 	TileConfig.new([20, -6], Enums.Tiles.GRASS),
-	TileConfig.new([7, -5], Enums.Tiles.GRASS),
+	TileConfig.new([7, -5], Enums.Tiles.GRASS, FortFeature),
 	TileConfig.new([9, -5], Enums.Tiles.GRASS),
 	TileConfig.new([11, -5], Enums.Tiles.GRASS),
 	TileConfig.new([13, -5], Enums.Tiles.GRASS),
@@ -118,7 +118,7 @@ var regionD_tiles: Array[TileConfig] = [
 	TileConfig.new([12, -4], Enums.Tiles.GRASS),
 	TileConfig.new([14, -4], Enums.Tiles.GRASS),
 	TileConfig.new([18, -4], Enums.Tiles.GRASS),
-	TileConfig.new([11, -3], Enums.Tiles.GRASS),
+	TileConfig.new([11, -3], Enums.Tiles.GRASS, FortFeature),
 	TileConfig.new([12, -2], Enums.Tiles.GRASS),
 ]
 
@@ -144,8 +144,8 @@ var regionE_tiles: Array[TileConfig] = [
 	TileConfig.new([-4, -4], Enums.Tiles.GRASS),
 	TileConfig.new([-2, -4], Enums.Tiles.GRASS),
 	TileConfig.new([-9, -3], Enums.Tiles.GRASS),
-	TileConfig.new([-7, -3], Enums.Tiles.GRASS),
-	TileConfig.new([-5, -3], Enums.Tiles.GRASS),
+	TileConfig.new([-7, -3], Enums.Tiles.GRASS, CapitalFeature),
+	TileConfig.new([-5, -3], Enums.Tiles.GRASS, FortFeature),
 	TileConfig.new([-3, -3], Enums.Tiles.GRASS),
 	TileConfig.new([-10, -2], Enums.Tiles.GRASS),
 	TileConfig.new([-8, -2], Enums.Tiles.GRASS),
@@ -161,7 +161,7 @@ var regionE_tiles: Array[TileConfig] = [
 	TileConfig.new([-6, 0], Enums.Tiles.GRASS),
 	TileConfig.new([-4, 0], Enums.Tiles.GRASS),
 	TileConfig.new([-9, 1], Enums.Tiles.GRASS),
-	TileConfig.new([-7, 1], Enums.Tiles.GRASS),
+	TileConfig.new([-7, 1], Enums.Tiles.GRASS, FortFeature),
 	TileConfig.new([-5, 1], Enums.Tiles.GRASS),
 	TileConfig.new([-3, 1], Enums.Tiles.GRASS),
 ]
@@ -175,7 +175,7 @@ var regionF_tiles: Array[TileConfig] = [
 	TileConfig.new([-19, -7], Enums.Tiles.GRASS),
 	TileConfig.new([-17, -7], Enums.Tiles.GRASS),
 	TileConfig.new([-15, -7], Enums.Tiles.GRASS),
-	TileConfig.new([-13, -7], Enums.Tiles.GRASS),
+	TileConfig.new([-13, -7], Enums.Tiles.GRASS, FortFeature),
 	TileConfig.new([-22, -6], Enums.Tiles.GRASS),
 	TileConfig.new([-20, -6], Enums.Tiles.GRASS),
 	TileConfig.new([-18, -6], Enums.Tiles.GRASS),
@@ -188,10 +188,10 @@ var regionF_tiles: Array[TileConfig] = [
 	TileConfig.new([-15, -5], Enums.Tiles.GRASS),
 	TileConfig.new([-13, -5], Enums.Tiles.GRASS),
 	TileConfig.new([-11, -5], Enums.Tiles.GRASS),
-	TileConfig.new([-22, -4], Enums.Tiles.GRASS),
+	TileConfig.new([-22, -4], Enums.Tiles.GRASS, CapitalFeature),
 	TileConfig.new([-20, -4], Enums.Tiles.GRASS),
 	TileConfig.new([-18, -4], Enums.Tiles.GRASS),
-	TileConfig.new([-16, -4], Enums.Tiles.GRASS),
+	TileConfig.new([-16, -4], Enums.Tiles.GRASS, FortFeature),
 	TileConfig.new([-14, -4], Enums.Tiles.GRASS),
 	TileConfig.new([-12, -4], Enums.Tiles.GRASS),
 	TileConfig.new([-21, -3], Enums.Tiles.GRASS),
@@ -213,27 +213,27 @@ var regionF_tiles: Array[TileConfig] = [
 
 #func _init(name: String, selectable: bool, pos: Array, tiles: Array[TileConfig]) -> void:
 func regionA() -> RegionConfig:
-	var region = RegionConfig.new("RegionA", true, [0, 0], regionA_tiles)
+	var region = RegionConfig.new("Region A", true, [0, 0], regionA_tiles)
 	return region
 
 func regionB() -> RegionConfig:
-	var region = RegionConfig.new("RegionB", true, [0, 0], regionB_tiles)
+	var region = RegionConfig.new("Region B", true, [0, 0], regionB_tiles)
 	return region
 	
 func regionC() -> RegionConfig:
-	var region = RegionConfig.new("RegionC", true, [0, 0], regionC_tiles)
+	var region = RegionConfig.new("Region C", true, [0, 0], regionC_tiles)
 	return region
 
 func regionD() -> RegionConfig:
-	var region = RegionConfig.new("RegionD", true, [0, 0], regionD_tiles)
+	var region = RegionConfig.new("Region D", true, [0, 0], regionD_tiles)
 	return region
 
 func regionE() -> RegionConfig:
-	var region = RegionConfig.new("RegionE", true, [0, 0], regionE_tiles)
+	var region = RegionConfig.new("Region E", true, [0, 0], regionE_tiles)
 	return region
 
 func regionF() -> RegionConfig:
-	var region = RegionConfig.new("RegionF", true, [0, 0], regionF_tiles)
+	var region = RegionConfig.new("Region F", true, [0, 0], regionF_tiles)
 	return region
 
 
@@ -256,16 +256,16 @@ func ocean() -> RegionConfig:
 	return region
 
 func judgement_kingdom() -> Kingdom:
-	return Kingdom.new("JudgementKingdom", Enums.BorderStyles.STYLE1, [regionA()])
+	return Kingdom.new("Judgement Kingdom", Enums.BorderStyles.STYLE1, [regionA()])
 	
 func valor_kingdom() -> Kingdom:
-	return Kingdom.new("ValorKingdom", Enums.BorderStyles.STYLE2, [regionB()])
+	return Kingdom.new("Valor Kingdom", Enums.BorderStyles.STYLE2, [regionB()])
 	
 func harmony_kingdom() -> Kingdom:
-	return Kingdom.new("HarmonyKingdom", Enums.BorderStyles.STYLE5, [regionC(), regionD()])
+	return Kingdom.new("Harmony Kingdom", Enums.BorderStyles.STYLE5, [regionC(), regionD()])
 
 func sagacity_kingdom() -> Kingdom:
-	return Kingdom.new("SagacityKingdom", Enums.BorderStyles.STYLE3, [regionE(), regionF()])
+	return Kingdom.new("Sagacity Kingdom", Enums.BorderStyles.STYLE3, [regionE(), regionF()])
 
 func impassable_kingdom() -> Kingdom:
 	return Kingdom.new("Impassable", Enums.BorderStyles.STYLE1, [ocean()])
@@ -275,11 +275,14 @@ func impassable_kingdom() -> Kingdom:
 # (the type may have the texture defined but also other stuff like oceans behave a certain way)] 
 
 func build_map() -> void:
-	self.add_child(judgement_kingdom()) # player kingdom?
+	var _judement_kingdom = judgement_kingdom()
+	self.add_child(_judement_kingdom) # player kingdom?
 	self.add_child(valor_kingdom())
 	self.add_child(harmony_kingdom())
 	self.add_child(sagacity_kingdom())
 	self.add_child(impassable_kingdom())
+	
+	GameManager.set_player_kingdom(_judement_kingdom)
 	#var HarmonyKingdom = Kingdom.new()
 	#var SagacityKingdom = Kingdom.new()
 	#var FerocityKingdom = Kingdom.new()
