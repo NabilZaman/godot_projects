@@ -16,7 +16,7 @@ signal user_response(resp: Enums.UserResponse)
 
 
 func set_message(message: String) -> void:
-	# Adjust box dimensions appropriately
+	# Adjust box dimensions appropriately with text wrap, etc
 	self.message_body.text = message
 
 func configure(height: int, width: int, max_width: int, show_cancel: bool, message: String) -> void:

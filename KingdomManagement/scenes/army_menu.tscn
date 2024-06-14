@@ -1,0 +1,211 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhx61lllfb6ex"]
+
+[ext_resource type="Script" path="res://scripts/nodes/army_menu.gd" id="1_gfx8w"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ccqgt"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u6wb1"]
+bg_color = Color(1, 1, 1, 1)
+
+[node name="ArmyMenu" type="PanelContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -288.0
+offset_top = -406.0
+offset_right = 312.0
+offset_bottom = 394.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gfx8w")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "ARMY"
+horizontal_alignment = 1
+
+[node name="Spacer1" type="Control" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Replenishment" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ReplenishmentHeader" type="Label" parent="MarginContainer/VBoxContainer/Replenishment"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Troops Replenishment"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ReplenishmentSlider" type="HSlider" parent="MarginContainer/VBoxContainer/Replenishment"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+ticks_on_borders = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Replenishment"]
+layout_mode = 2
+alignment = 1
+
+[node name="Troops" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Replenishment/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="TroopsLabel" type="Label" parent="MarginContainer/VBoxContainer/Replenishment/HBoxContainer/Troops"]
+layout_mode = 2
+text = "Troops:"
+
+[node name="TroopsCount" type="PanelContainer" parent="MarginContainer/VBoxContainer/Replenishment/HBoxContainer/Troops"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ccqgt")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Replenishment/HBoxContainer/Troops/TroopsCount"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Replenishment/HBoxContainer/Troops/TroopsCount/MarginContainer"]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1
+
+[node name="Cost" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Replenishment/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="CostLabel" type="Label" parent="MarginContainer/VBoxContainer/Replenishment/HBoxContainer/Cost"]
+layout_mode = 2
+text = "Cost:"
+
+[node name="CostCount" type="PanelContainer" parent="MarginContainer/VBoxContainer/Replenishment/HBoxContainer/Cost"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_u6wb1")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Replenishment/HBoxContainer/Cost/CostCount"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Replenishment/HBoxContainer/Cost/CostCount/MarginContainer"]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1
+
+[node name="Confirm" type="Button" parent="MarginContainer/VBoxContainer/Replenishment/HBoxContainer"]
+layout_mode = 2
+text = "Confirm"
+
+[node name="Spacer2" type="Control" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+
+[node name="Recruitment" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="RecruitmentHeader" type="Label" parent="MarginContainer/VBoxContainer/Recruitment"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Troops Recruitment"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RecruitmentSlider" type="HSlider" parent="MarginContainer/VBoxContainer/Recruitment"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+ticks_on_borders = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Recruitment"]
+layout_mode = 2
+alignment = 1
+
+[node name="Troops" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Recruitment/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="TroopsLabel" type="Label" parent="MarginContainer/VBoxContainer/Recruitment/HBoxContainer/Troops"]
+layout_mode = 2
+text = "Troops:"
+
+[node name="TroopsCount" type="PanelContainer" parent="MarginContainer/VBoxContainer/Recruitment/HBoxContainer/Troops"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ccqgt")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Recruitment/HBoxContainer/Troops/TroopsCount"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Recruitment/HBoxContainer/Troops/TroopsCount/MarginContainer"]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1
+
+[node name="Cost" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Recruitment/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="CostLabel" type="Label" parent="MarginContainer/VBoxContainer/Recruitment/HBoxContainer/Cost"]
+layout_mode = 2
+text = "Cost:"
+
+[node name="CostCount" type="PanelContainer" parent="MarginContainer/VBoxContainer/Recruitment/HBoxContainer/Cost"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_u6wb1")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Recruitment/HBoxContainer/Cost/CostCount"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Recruitment/HBoxContainer/Cost/CostCount/MarginContainer"]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1
+
+[node name="Confirm" type="Button" parent="MarginContainer/VBoxContainer/Recruitment/HBoxContainer"]
+layout_mode = 2
+text = "Confirm"
+
+[node name="CloseButton" type="Button" parent="MarginContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "X"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Replenishment/HBoxContainer/Confirm" to="." method="on_replenish_confirm"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Recruitment/HBoxContainer/Confirm" to="." method="on_recruit_confirm"]
+[connection signal="pressed" from="MarginContainer/CloseButton" to="." method="on_close"]

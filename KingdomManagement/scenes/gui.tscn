@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://ck4c48a6x7gcb"]
+[gd_scene load_steps=15 format=3 uid="uid://ck4c48a6x7gcb"]
 
 [ext_resource type="Script" path="res://scenes/gui.gd" id="1_4jwgh"]
 [ext_resource type="Script" path="res://scripts/nodes/GoldInfo.gd" id="1_ohsbt"]
 [ext_resource type="Script" path="res://scenes/ActionsDisplay.gd" id="1_pphtj"]
 [ext_resource type="Texture2D" uid="uid://ditujoy8pbn4w" path="res://sprites/Icons/EnergyIconFull.png" id="2_5txm3"]
 [ext_resource type="Script" path="res://scripts/nodes/ActionsMenu.gd" id="2_au1e4"]
+[ext_resource type="Script" path="res://scenes/army_button.gd" id="2_fajsx"]
 [ext_resource type="Texture2D" uid="uid://b4bh3bxedcbiq" path="res://sprites/Icons/EnergyIconEmpty.png" id="3_umbdk"]
 [ext_resource type="Script" path="res://scripts/nodes/TroopsInfo.gd" id="3_wrxr8"]
 [ext_resource type="Texture2D" uid="uid://bxtoq1h5h4bgs" path="res://sprites/Icons/EnergyIconHalf.png" id="4_ba8pv"]
@@ -18,13 +19,6 @@
 [node name="GUI" type="CanvasLayer"]
 script = ExtResource("1_4jwgh")
 
-[node name="Blocker" type="Control" parent="."]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
-
 [node name="TopBar" type="PanelContainer" parent="."]
 offset_right = 1920.0
 offset_bottom = 65.0
@@ -36,29 +30,35 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="MenuButtons" type="HBoxContainer" parent="TopBar/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TopBar/MarginContainer"]
 layout_mode = 2
+
+[node name="MenuButtons" type="HBoxContainer" parent="TopBar/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
 theme_override_constants/separation = 6
 
-[node name="Settings" type="Button" parent="TopBar/MarginContainer/MenuButtons"]
+[node name="Settings" type="Button" parent="TopBar/MarginContainer/HBoxContainer/MenuButtons"]
 visible = false
 layout_mode = 2
 text = "Settings"
 
-[node name="Army" type="Button" parent="TopBar/MarginContainer/MenuButtons"]
+[node name="Army" type="Button" parent="TopBar/MarginContainer/HBoxContainer/MenuButtons"]
 layout_mode = 2
 text = "Army"
+script = ExtResource("2_fajsx")
 
-[node name="Inventory" type="Button" parent="TopBar/MarginContainer/MenuButtons"]
+[node name="Inventory" type="Button" parent="TopBar/MarginContainer/HBoxContainer/MenuButtons"]
 visible = false
 layout_mode = 2
 text = "Inventory"
 
-[node name="InfoPanel" type="HBoxContainer" parent="TopBar/MarginContainer"]
+[node name="InfoPanel" type="HBoxContainer" parent="TopBar/MarginContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 10
 alignment = 2
 
-[node name="ActionsDisplay" type="PanelContainer" parent="TopBar/MarginContainer/InfoPanel"]
+[node name="ActionsDisplay" type="PanelContainer" parent="TopBar/MarginContainer/HBoxContainer/InfoPanel"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_t122b")
 script = ExtResource("1_pphtj")
@@ -66,118 +66,118 @@ full_texture = ExtResource("2_5txm3")
 empty_texture = ExtResource("3_umbdk")
 half_texture = ExtResource("4_ba8pv")
 
-[node name="MarginContainer" type="MarginContainer" parent="TopBar/MarginContainer/InfoPanel/ActionsDisplay"]
+[node name="MarginContainer" type="MarginContainer" parent="TopBar/MarginContainer/HBoxContainer/InfoPanel/ActionsDisplay"]
 layout_mode = 2
 theme_override_constants/margin_left = 2
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="EnergyIcons" type="HBoxContainer" parent="TopBar/MarginContainer/InfoPanel/ActionsDisplay/MarginContainer"]
+[node name="EnergyIcons" type="HBoxContainer" parent="TopBar/MarginContainer/HBoxContainer/InfoPanel/ActionsDisplay/MarginContainer"]
 layout_mode = 2
 
-[node name="GoldInfo" type="PanelContainer" parent="TopBar/MarginContainer/InfoPanel"]
+[node name="GoldInfo" type="PanelContainer" parent="TopBar/MarginContainer/HBoxContainer/InfoPanel"]
 layout_mode = 2
 theme_type_variation = &"InfoBox"
 script = ExtResource("1_ohsbt")
 
-[node name="MarginContainer" type="MarginContainer" parent="TopBar/MarginContainer/InfoPanel/GoldInfo"]
+[node name="MarginContainer" type="MarginContainer" parent="TopBar/MarginContainer/HBoxContainer/InfoPanel/GoldInfo"]
 layout_mode = 2
 theme_override_constants/margin_left = 2
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TopBar/MarginContainer/InfoPanel/GoldInfo/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TopBar/MarginContainer/HBoxContainer/InfoPanel/GoldInfo/MarginContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="TopBar/MarginContainer/InfoPanel/GoldInfo/MarginContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="TopBar/MarginContainer/HBoxContainer/InfoPanel/GoldInfo/MarginContainer/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("6_xk2dl")
 expand_mode = 2
 
-[node name="Value" type="Label" parent="TopBar/MarginContainer/InfoPanel/GoldInfo/MarginContainer/HBoxContainer"]
+[node name="Value" type="Label" parent="TopBar/MarginContainer/HBoxContainer/InfoPanel/GoldInfo/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "0"
 
-[node name="TroopsInfo" type="PanelContainer" parent="TopBar/MarginContainer/InfoPanel"]
+[node name="TroopsInfo" type="PanelContainer" parent="TopBar/MarginContainer/HBoxContainer/InfoPanel"]
 layout_mode = 2
 theme_type_variation = &"InfoBox"
 script = ExtResource("3_wrxr8")
 
-[node name="MarginContainer" type="MarginContainer" parent="TopBar/MarginContainer/InfoPanel/TroopsInfo"]
+[node name="MarginContainer" type="MarginContainer" parent="TopBar/MarginContainer/HBoxContainer/InfoPanel/TroopsInfo"]
 layout_mode = 2
 theme_override_constants/margin_left = 2
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TopBar/MarginContainer/InfoPanel/TroopsInfo/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TopBar/MarginContainer/HBoxContainer/InfoPanel/TroopsInfo/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TopBar/MarginContainer/InfoPanel/TroopsInfo/MarginContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="TopBar/MarginContainer/HBoxContainer/InfoPanel/TroopsInfo/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "Troops:"
 
-[node name="Value" type="Label" parent="TopBar/MarginContainer/InfoPanel/TroopsInfo/MarginContainer/HBoxContainer"]
+[node name="Value" type="Label" parent="TopBar/MarginContainer/HBoxContainer/InfoPanel/TroopsInfo/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "0"
 
-[node name="CommandersInfo" type="PanelContainer" parent="TopBar/MarginContainer/InfoPanel"]
+[node name="CommandersInfo" type="PanelContainer" parent="TopBar/MarginContainer/HBoxContainer/InfoPanel"]
 visible = false
 layout_mode = 2
 theme_type_variation = &"InfoBox"
 script = ExtResource("4_uu4n3")
 
-[node name="MarginContainer" type="MarginContainer" parent="TopBar/MarginContainer/InfoPanel/CommandersInfo"]
+[node name="MarginContainer" type="MarginContainer" parent="TopBar/MarginContainer/HBoxContainer/InfoPanel/CommandersInfo"]
 layout_mode = 2
 theme_override_constants/margin_left = 2
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TopBar/MarginContainer/InfoPanel/CommandersInfo/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TopBar/MarginContainer/HBoxContainer/InfoPanel/CommandersInfo/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TopBar/MarginContainer/InfoPanel/CommandersInfo/MarginContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="TopBar/MarginContainer/HBoxContainer/InfoPanel/CommandersInfo/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "Commanders:"
 
-[node name="Value" type="Label" parent="TopBar/MarginContainer/InfoPanel/CommandersInfo/MarginContainer/HBoxContainer"]
+[node name="Value" type="Label" parent="TopBar/MarginContainer/HBoxContainer/InfoPanel/CommandersInfo/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "0"
 
-[node name="TurnInfo" type="PanelContainer" parent="TopBar/MarginContainer/InfoPanel"]
+[node name="TurnInfo" type="PanelContainer" parent="TopBar/MarginContainer/HBoxContainer/InfoPanel"]
 layout_mode = 2
 theme_type_variation = &"InfoBox"
 script = ExtResource("5_ihmtu")
 
-[node name="MarginContainer" type="MarginContainer" parent="TopBar/MarginContainer/InfoPanel/TurnInfo"]
+[node name="MarginContainer" type="MarginContainer" parent="TopBar/MarginContainer/HBoxContainer/InfoPanel/TurnInfo"]
 layout_mode = 2
 theme_override_constants/margin_left = 2
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TopBar/MarginContainer/InfoPanel/TurnInfo/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TopBar/MarginContainer/HBoxContainer/InfoPanel/TurnInfo/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TopBar/MarginContainer/InfoPanel/TurnInfo/MarginContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="TopBar/MarginContainer/HBoxContainer/InfoPanel/TurnInfo/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "Turn: "
 
-[node name="Value" type="Label" parent="TopBar/MarginContainer/InfoPanel/TurnInfo/MarginContainer/HBoxContainer"]
+[node name="Value" type="Label" parent="TopBar/MarginContainer/HBoxContainer/InfoPanel/TurnInfo/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "0"
 
-[node name="EndTurn" type="Button" parent="TopBar/MarginContainer/InfoPanel"]
+[node name="EndTurn" type="Button" parent="TopBar/MarginContainer/HBoxContainer/InfoPanel"]
 layout_mode = 2
 text = "END TURN"
 script = ExtResource("8_hi6as")
@@ -237,5 +237,13 @@ layout_mode = 2
 layout_mode = 2
 text = "CLOSE"
 
-[connection signal="pressed" from="TopBar/MarginContainer/InfoPanel/EndTurn" to="TopBar/MarginContainer/InfoPanel/EndTurn" method="_on_pressed"]
+[node name="Blocker" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[connection signal="pressed" from="TopBar/MarginContainer/HBoxContainer/MenuButtons/Army" to="TopBar/MarginContainer/HBoxContainer/MenuButtons/Army" method="_on_pressed"]
+[connection signal="pressed" from="TopBar/MarginContainer/HBoxContainer/InfoPanel/EndTurn" to="TopBar/MarginContainer/HBoxContainer/InfoPanel/EndTurn" method="_on_pressed"]
 [connection signal="pressed" from="ActionsMenu/MarginContainer/Layout/CLOSE" to="ActionsMenu" method="on_close"]
