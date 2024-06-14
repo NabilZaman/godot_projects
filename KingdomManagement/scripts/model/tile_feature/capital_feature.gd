@@ -34,6 +34,23 @@ func turn_update(turn_num: int) -> void:
 func upgrade_cost() -> Array[GameResource]:
 	return [GameResource.new(Enums.ResourceType.GOLD, 10)]
 
+func capture(captor: Kingdom) -> void:
+	# remove the region from the old kingdom
+	self.tile.region.kingdom.regions.erase(self.tile.region)
+	# mark the new kingdom as the owner of this region
+	self.tile.region.kingdom = captor
+	# register this region in the new kingdom
+	self.tile.region.kingdom.regions.append(self.tile.region)
+	# Signal capture to region
+	Signals.region_captured.emit(self.tile.region)
+
+func get_actions() -> Array[TileAction]:
+	var actions = super()
+	# Add attack action
+	if tile.region.kingdom != GameManager.player.kingdom:
+		actions.append(AttackAction.new(self.tile))
+	return actions
+
 func _init() -> void:
 	super()
 

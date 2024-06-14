@@ -1,0 +1,52 @@
+[gd_scene load_steps=2 format=3 uid="uid://igse123bnioj"]
+
+[ext_resource type="Script" path="res://scripts/nodes/MessageBox.gd" id="1_6s1t4"]
+
+[node name="Message" type="PanelContainer"]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -99.5
+offset_top = 200.0
+offset_right = 100.5
+offset_bottom = 326.0
+grow_horizontal = 2
+theme_type_variation = &"MessageBox"
+script = ExtResource("1_6s1t4")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="MessageBody" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "
+"
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="CONFIRM" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "CONFIRM
+"
+
+[node name="CANCEL" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "CANCEL
+"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/CONFIRM" to="." method="_confirm"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/CANCEL" to="." method="_cancel"]

@@ -10,6 +10,7 @@
 script = ExtResource("2_rs2a1")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, 400)
 zoom = Vector2(1.2, 1.2)
 script = ExtResource("2_oyeyg")
 

@@ -17,6 +17,7 @@ signal hover_signal(tile: HexTile)
 
 func _ready() -> void:
 	hover_signal.connect(on_tile_hover)
+	Signals.region_captured.connect(on_capture)
 	if selectable:
 		click_signal.connect(on_click)
 		Signals.map_focus_changed.connect(on_hover)
@@ -32,7 +33,10 @@ func add_hex(grid_pos: GridPosition, border_style: PackedScene, tile_type: TileT
 			self.capital = tile.feature
 		elif tile.feature is FortFeature:
 			self.forts.append(tile.feature)
-	
+
+func on_capture(region: Region) -> void:
+	for tile in tiles:
+		tile.update_borders(kingdom.border_style)
 
 func on_click(tile: HexTile) -> void:
 	Signals.open_tile_menu.emit(tile)
