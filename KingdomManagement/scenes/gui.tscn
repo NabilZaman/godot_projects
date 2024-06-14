@@ -175,7 +175,7 @@ text = "Turn: "
 [node name="Value" type="Label" parent="TopBar/MarginContainer/HBoxContainer/InfoPanel/TurnInfo/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-text = "0"
+text = "1"
 
 [node name="EndTurn" type="Button" parent="TopBar/MarginContainer/HBoxContainer/InfoPanel"]
 layout_mode = 2

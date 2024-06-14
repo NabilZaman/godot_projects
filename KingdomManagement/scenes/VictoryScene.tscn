@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://71ew4oah27qb"]
+
+[node name="VictoryScene" type="Node2D"]
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 898.0
+offset_top = 523.0
+offset_right = 1005.0
+offset_bottom = 557.0
+theme_override_font_sizes/font_size = 24
+text = "You won!"
