@@ -6,6 +6,8 @@ signal close_tile_menu()
 signal show_message(message: String)
 signal get_confirmation(message: String)
 signal user_response(resp: Enums.UserResponse)
+signal open_army_menu()
+signal close_army_menu()
 
 # Resources
 signal gold_changed(new_value: int)

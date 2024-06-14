@@ -31,6 +31,9 @@ texture_margin_bottom = 4.0
 [resource]
 InfoBox/base_type = &"PanelContainer"
 InfoBox/styles/panel = SubResource("StyleBoxTexture_cd4et")
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 3
+Label/font_sizes/font_size = 16
 MarginContainer/constants/margin_bottom = 4
 MarginContainer/constants/margin_left = 4
 MarginContainer/constants/margin_right = 4

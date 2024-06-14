@@ -22,10 +22,10 @@ Enums="*res://scripts/globals/enums.gd"
 GameConfig="*res://scripts/globals/game_config.gd"
 Signals="*res://scripts/globals/signals.gd"
 HexGrid="*res://scripts/globals/hex_grid.gd"
-Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 SceneManager="*res://addons/scene_manager/scene_manager.tscn"
 Scenes="*res://addons/scene_manager/scenes.gd"
 Signal_Debugger="*res://addons/SignalVisualizer/Debugger/SignalDebugger.gd"
+Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 
 [dialogic]
 
