@@ -1,6 +1,9 @@
 extends Node
 
-var turn_count: int = 0
+const DEFEAT_SCENE = preload("res://scenes/DefeatScene.tscn")
+const VICTORY_SCENE = preload("res://scenes/VictoryScene.tscn")
+
+var turn_count: int = 1
 var player: Player
 var rng := RandomNumberGenerator.new()
 
@@ -36,6 +39,8 @@ func end_turn() -> void:
 	Signals.turn_changed.emit(self.turn_count)
 	collect_resources()
 	replenish_troops()
+	check_win()
+	check_loss()
 	# run new turn events
 
 func collect_resources() -> void:
@@ -50,3 +55,11 @@ func collect_resources() -> void:
 
 func replenish_troops() -> void:
 	player.kingdom.army.replenish_pct(.02)
+
+func check_loss():
+	if self.turn_count > 20:
+		get_tree().change_scene_to_packed(DEFEAT_SCENE)
+
+func check_win():
+	if len(player.kingdom.regions) >= 6:
+		get_tree().change_scene_to_packed(VICTORY_SCENE)

@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dds5m48mj3uew"]
+
+[node name="DefeatScene" type="Node2D"]
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 906.0
+offset_top = 518.0
+offset_right = 1006.0
+offset_bottom = 552.0
+theme_override_font_sizes/font_size = 24
+text = "You lost!"
