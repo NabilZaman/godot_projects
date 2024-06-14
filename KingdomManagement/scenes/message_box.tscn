@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://igse123bnioj"]
+[gd_scene load_steps=3 format=3 uid="uid://igse123bnioj"]
 
 [ext_resource type="Script" path="res://scripts/nodes/MessageBox.gd" id="1_6s1t4"]
+[ext_resource type="Script" path="res://scenes/ScrollContainer.gd" id="2_s6yyc"]
 
 [node name="Message" type="PanelContainer"]
 anchors_preset = 5
@@ -14,39 +15,55 @@ grow_horizontal = 2
 theme_type_variation = &"MessageBox"
 script = ExtResource("1_6s1t4")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+horizontal_scroll_mode = 0
+script = ExtResource("2_s6yyc")
+max_height = 700
+
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="MessageBody" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="MessageBody" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "
-"
+text = "lakjsdfhasd
+lkasjdhf
+sdfh;sdaf
+skjldfh
+asdf;hs;ajdfh
+sdfljka
+sfdhjs;df
+asdkfjhlksadf
+skdjfh
+ksdfh"
 
-[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer"]
+[node name="Spacer" type="Control" parent="ScrollContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="CONFIRM" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="CONFIRM" type="Button" parent="ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "CONFIRM
 "
 
-[node name="CANCEL" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="CANCEL" type="Button" parent="ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "CANCEL
 "
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/CONFIRM" to="." method="_confirm"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/CANCEL" to="." method="_cancel"]
+[connection signal="resized" from="ScrollContainer/MarginContainer/VBoxContainer/MessageBody" to="ScrollContainer" method="on_text_update"]
+[connection signal="pressed" from="ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/CONFIRM" to="." method="_confirm"]
+[connection signal="pressed" from="ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/CANCEL" to="." method="_cancel"]

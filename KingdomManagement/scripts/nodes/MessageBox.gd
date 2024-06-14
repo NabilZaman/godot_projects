@@ -1,9 +1,9 @@
 class_name MessageBox
 extends PanelContainer
 
-@onready var confirm_button: Button = $MarginContainer/VBoxContainer/HBoxContainer/CONFIRM
-@onready var cancel_button: Button = $MarginContainer/VBoxContainer/HBoxContainer/CANCEL
-@onready var message_body: Label = $MarginContainer/VBoxContainer/MessageBody
+@onready var confirm_button: Button = $ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/CONFIRM
+@onready var cancel_button: Button = $ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/CANCEL
+@onready var message_body: Label = $ScrollContainer/MarginContainer/VBoxContainer/MessageBody
 
 var min_height: int
 var min_width: int
