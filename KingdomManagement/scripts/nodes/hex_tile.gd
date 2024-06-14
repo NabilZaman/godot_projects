@@ -36,7 +36,7 @@ func setup(grid_pos: GridPosition, border_style: PackedScene, tile_type: TileTyp
 	self.layer = layer
 	if feature_type != null:
 		self.feature = feature_type.new()
-		self.feature.tile = self
+		self.feature.set_tile(self)
 		self.feature.position.y = -50
 		
 	self.z_index = grid_pos.y
@@ -94,6 +94,9 @@ func get_actions() -> Array[TileAction]: #TODO: THESE ARE GOING OUT OF SCOPE AND
 	if self.feature != null:
 		actions.append_array(feature.get_actions())
 	return actions
+
+func _exit_tree():
+	self.region.tiles.erase(self)
 
 func collect_resources() -> Array[GameResource]:
 	if self.feature != null:

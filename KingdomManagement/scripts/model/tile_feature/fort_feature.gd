@@ -35,6 +35,7 @@ func get_actions() -> Array[TileAction]:
 	var actions = super()
 	# Add attack action
 	if controller != GameManager.player.kingdom:
+		print("Can attack this fort!")
 		actions.append(AttackAction.new(self.tile))
 	return actions
 

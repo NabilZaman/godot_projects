@@ -1,5 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://ck4c48a6x7gcb"]
+[gd_scene load_steps=14 format=3 uid="uid://ck4c48a6x7gcb"]
 
+[ext_resource type="Script" path="res://scenes/gui.gd" id="1_4jwgh"]
 [ext_resource type="Script" path="res://scripts/nodes/GoldInfo.gd" id="1_ohsbt"]
 [ext_resource type="Script" path="res://scenes/ActionsDisplay.gd" id="1_pphtj"]
 [ext_resource type="Texture2D" uid="uid://ditujoy8pbn4w" path="res://sprites/Icons/EnergyIconFull.png" id="2_5txm3"]
@@ -15,6 +16,14 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t122b"]
 
 [node name="GUI" type="CanvasLayer"]
+script = ExtResource("1_4jwgh")
+
+[node name="Blocker" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
 
 [node name="TopBar" type="PanelContainer" parent="."]
 offset_right = 1920.0
@@ -32,6 +41,7 @@ layout_mode = 2
 theme_override_constants/separation = 6
 
 [node name="Settings" type="Button" parent="TopBar/MarginContainer/MenuButtons"]
+visible = false
 layout_mode = 2
 text = "Settings"
 
@@ -40,6 +50,7 @@ layout_mode = 2
 text = "Army"
 
 [node name="Inventory" type="Button" parent="TopBar/MarginContainer/MenuButtons"]
+visible = false
 layout_mode = 2
 text = "Inventory"
 
@@ -116,6 +127,7 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "0"
 
 [node name="CommandersInfo" type="PanelContainer" parent="TopBar/MarginContainer/InfoPanel"]
+visible = false
 layout_mode = 2
 theme_type_variation = &"InfoBox"
 script = ExtResource("4_uu4n3")
@@ -221,9 +233,9 @@ layout_mode = 2
 [node name="TileOptions" type="VBoxContainer" parent="ActionsMenu/MarginContainer/Layout/MenuOptions"]
 layout_mode = 2
 
-[node name="Cancel" type="Button" parent="ActionsMenu/MarginContainer/Layout"]
+[node name="CLOSE" type="Button" parent="ActionsMenu/MarginContainer/Layout"]
 layout_mode = 2
-text = "CANCEL"
+text = "CLOSE"
 
 [connection signal="pressed" from="TopBar/MarginContainer/InfoPanel/EndTurn" to="TopBar/MarginContainer/InfoPanel/EndTurn" method="_on_pressed"]
-[connection signal="pressed" from="ActionsMenu/MarginContainer/Layout/Cancel" to="ActionsMenu" method="on_close"]
+[connection signal="pressed" from="ActionsMenu/MarginContainer/Layout/CLOSE" to="ActionsMenu" method="on_close"]

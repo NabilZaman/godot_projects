@@ -6,9 +6,9 @@ const xmove := Vector2(SPEED, 0)
 const ymove := Vector2(0, SPEED)
 
 # ZOOM CONFIG
-const MIN_ZOOM := 0.33
-const MAX_ZOOM := 1.4
-var zoom_lvl := 1.2
+const MIN_ZOOM := 0.28
+const MAX_ZOOM := 1.5
+var zoom_lvl := 1.0
 var zoom_factor := 0.1
 var zoom_duration := 0.2
 

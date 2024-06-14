@@ -23,6 +23,9 @@ GameConfig="*res://scripts/globals/game_config.gd"
 Signals="*res://scripts/globals/signals.gd"
 HexGrid="*res://scripts/globals/hex_grid.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
+SceneManager="*res://addons/scene_manager/scene_manager.tscn"
+Scenes="*res://addons/scene_manager/scenes.gd"
+Signal_Debugger="*res://addons/SignalVisualizer/Debugger/SignalDebugger.gd"
 
 [dialogic]
 
@@ -38,7 +41,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
+enabled=PackedStringArray("res://addons/SignalVisualizer/plugin.cfg", "res://addons/dialogic/plugin.cfg", "res://addons/scene_manager/plugin.cfg")
 
 [gui]
 

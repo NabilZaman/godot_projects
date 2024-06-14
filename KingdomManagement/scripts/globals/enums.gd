@@ -5,6 +5,8 @@ enum TerritoryOwner {PLAYER, NPC} # Expand to full cast of options... or support
 
 enum ResourceType {GOLD, ORE, LUMBER, FOOD}
 
+enum UserResponse {CONFIRM, CANCEL}
+
 const ActionCost := {"FULL": 1, "HALF": 0.5,}
 const BorderStyles := {
 	"STYLE1": preload("res://scenes/borders/hex_border_style1.tscn"),

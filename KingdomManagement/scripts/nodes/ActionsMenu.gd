@@ -15,7 +15,7 @@ var cur_actions: Array[Action] = []
 func on_close() -> void:
 	if !is_open:
 		return # nothing to do
-	self.visible = false
+	self.hide()
 	self.is_open = false
 
 func clear_menu() -> void:
@@ -30,7 +30,7 @@ func on_open(tile: HexTile) -> void:
 	if is_open and focused_tile == tile:
 		return # nothing to do
 	clear_menu()
-	self.visible = true
+	self.show()
 	self.is_open = true
 	self.focused_tile = tile
 	self.region_label.text = tile.region.region_name

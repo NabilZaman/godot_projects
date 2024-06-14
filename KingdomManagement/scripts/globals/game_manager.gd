@@ -2,6 +2,7 @@ extends Node
 
 var turn_count: int = 0
 var player: Player
+var rng := RandomNumberGenerator.new()
 
 var resource_bank: Dictionary = {}
 
@@ -26,8 +27,7 @@ func consume_action(action_cost: float) -> void:
 
 # Returns the list of global actions available
 func get_actions() -> Array[GlobalAction]:
-	var dummy = GlobalAction.new()
-	return [dummy]
+	return []
 
 func end_turn() -> void:
 	Signals.close_tile_menu.emit()
@@ -49,4 +49,4 @@ func collect_resources() -> void:
 		self.adjust_player_resource(resource)
 
 func replenish_troops() -> void:
-	pass
+	player.kingdom.army.replenish_pct(.02)

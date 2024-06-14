@@ -256,23 +256,19 @@ func ocean() -> RegionConfig:
 	return region
 
 func judgement_kingdom() -> Kingdom:
-	return Kingdom.new("Judgement Kingdom", Enums.BorderStyles.STYLE1, [regionA()])
+	return Kingdom.new("Judgement Kingdom", Enums.BorderStyles.STYLE1, 100, [regionA()], true)
 	
 func valor_kingdom() -> Kingdom:
-	return Kingdom.new("Valor Kingdom", Enums.BorderStyles.STYLE2, [regionB()])
+	return Kingdom.new("Valor Kingdom", Enums.BorderStyles.STYLE2, 40, [regionB()])
 	
 func harmony_kingdom() -> Kingdom:
-	return Kingdom.new("Harmony Kingdom", Enums.BorderStyles.STYLE5, [regionC(), regionD()])
+	return Kingdom.new("Harmony Kingdom", Enums.BorderStyles.STYLE5, 300, [regionC(), regionD()])
 
 func sagacity_kingdom() -> Kingdom:
-	return Kingdom.new("Sagacity Kingdom", Enums.BorderStyles.STYLE3, [regionE(), regionF()])
+	return Kingdom.new("Sagacity Kingdom", Enums.BorderStyles.STYLE3, 400, [regionE(), regionF()])
 
 func impassable_kingdom() -> Kingdom:
-	return Kingdom.new("Impassable", Enums.BorderStyles.STYLE1, [ocean()])
-
-# represent each tile config as:
-# [[x, y], Tile texture, tile resource, tile type?]
-# (the type may have the texture defined but also other stuff like oceans behave a certain way)] 
+	return Kingdom.new("Impassable", Enums.BorderStyles.STYLE1, 0, [ocean()])
 
 func build_map() -> void:
 	var _judement_kingdom = judgement_kingdom()

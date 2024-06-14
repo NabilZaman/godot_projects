@@ -11,7 +11,7 @@ var tile: HexTile
 func _ready() -> void:
 	self.ring_sprite = Sprite2D.new()
 	ring_sprite.texture = TILE_FEATURE_RING
-	ring_sprite.visible = false
+	ring_sprite.hide()
 	ring_sprite.position.y = 25
 	self.add_child(ring_sprite)
 	
@@ -23,10 +23,10 @@ func _ready() -> void:
 	Signals.turn_changed.connect(turn_update)
 
 func focus() -> void:
-	ring_sprite.visible = true
+	ring_sprite.show()
 
 func unfocus() -> void:
-	ring_sprite.visible = false
+	ring_sprite.hide()
 
 func set_tile(tile: HexTile) -> void:
 	self.tile = tile
