@@ -37,7 +37,7 @@ func update_texture(new_texture: Resource) -> void:
 func initial_texture() -> Resource:
 	return null
 
-func turn_update(turn_num: int) -> void:
+func turn_update(_turn_num: int) -> void:
 	pass
 
 func production() -> Array[GameResource]:
