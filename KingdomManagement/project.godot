@@ -27,6 +27,12 @@ Scenes="*res://addons/scene_manager/scenes.gd"
 Signal_Debugger="*res://addons/SignalVisualizer/Debugger/SignalDebugger.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 
+[debug]
+
+gdscript/warnings/shadowed_variable=0
+gdscript/warnings/shadowed_global_identifier=2
+gdscript/warnings/integer_division=0
+
 [dialogic]
 
 directories/dch_directory={}

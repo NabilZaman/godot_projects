@@ -1,0 +1,147 @@
+[gd_scene load_steps=6 format=3 uid="uid://jqfnd82cchhp"]
+
+[ext_resource type="Texture2D" uid="uid://bshm7oworjmrg" path="res://sprites/Icons/MoraleBarRed.png" id="1_em6p5"]
+[ext_resource type="Script" path="res://scenes/BattleScene.gd" id="1_mp6fk"]
+[ext_resource type="Texture2D" uid="uid://c06ofurfqpeli" path="res://sprites/Icons/MoraleBarBlue.png" id="2_5np65"]
+[ext_resource type="PackedScene" uid="uid://15hyxpf00c4q" path="res://scenes/player_unit_view.tscn" id="4_ay3fo"]
+[ext_resource type="PackedScene" uid="uid://bu8lhjtt618oi" path="res://scenes/npc_unit_view.tscn" id="5_ain7r"]
+
+[node name="BattleScene" type="CanvasLayer"]
+script = ExtResource("1_mp6fk")
+
+[node name="Layout" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MoraleBar" type="TextureProgressBar" parent="Layout"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -650.0
+offset_top = 30.0
+offset_right = 650.0
+offset_bottom = 29.0
+grow_horizontal = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+step = 0.1
+value = 50.0
+texture_under = ExtResource("1_em6p5")
+texture_progress = ExtResource("2_5np65")
+
+[node name="TurnInfo" type="VBoxContainer" parent="Layout"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = 70.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Layout/TurnInfo"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "PLAYER TURN"
+horizontal_alignment = 1
+
+[node name="TurnOrder" type="HBoxContainer" parent="Layout/TurnInfo"]
+layout_mode = 2
+alignment = 1
+
+[node name="TurnsLabel" type="Label" parent="Layout/TurnInfo/TurnOrder"]
+layout_mode = 2
+text = "Turns Remaining:"
+
+[node name="TurnsValue" type="Label" parent="Layout/TurnInfo/TurnOrder"]
+layout_mode = 2
+text = "0"
+
+[node name="PlayerUnitRows" type="GridContainer" parent="Layout"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/v_separation = 15
+columns = 2
+
+[node name="playerunit10" parent="Layout/PlayerUnitRows" instance=ExtResource("4_ay3fo")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="playerunit00" parent="Layout/PlayerUnitRows" instance=ExtResource("4_ay3fo")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="playerunit11" parent="Layout/PlayerUnitRows" instance=ExtResource("4_ay3fo")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="playerunit01" parent="Layout/PlayerUnitRows" instance=ExtResource("4_ay3fo")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="playerunit12" parent="Layout/PlayerUnitRows" instance=ExtResource("4_ay3fo")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="playerunit02" parent="Layout/PlayerUnitRows" instance=ExtResource("4_ay3fo")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="EnemyUnitRows" type="GridContainer" parent="Layout"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_constants/v_separation = 15
+columns = 2
+
+[node name="enemyunit02" parent="Layout/EnemyUnitRows" instance=ExtResource("5_ain7r")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="enemyunit12" parent="Layout/EnemyUnitRows" instance=ExtResource("5_ain7r")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="enemyunit01" parent="Layout/EnemyUnitRows" instance=ExtResource("5_ain7r")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="enemyunit11" parent="Layout/EnemyUnitRows" instance=ExtResource("5_ain7r")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="enemyunit00" parent="Layout/EnemyUnitRows" instance=ExtResource("5_ain7r")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="enemyunit10" parent="Layout/EnemyUnitRows" instance=ExtResource("5_ain7r")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
