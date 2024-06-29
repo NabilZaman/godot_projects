@@ -11,18 +11,18 @@ func start_map() -> void:
 
 func setup_battle() -> Battle:
 	var enemy_archer = UnitGenerator.random_archer()
-	enemy_archer.battle_pos = BattlePosition.new(1,1)
+	enemy_archer.set_position(BattlePosition.new(Enums.Role.DEFENDERS, 1, 1))
 	var enemy_swordsman = UnitGenerator.random_swordsman()
-	enemy_swordsman.battle_pos = BattlePosition.new(0,2)
+	enemy_swordsman.set_position(BattlePosition.new(Enums.Role.DEFENDERS, 0, 2))
 	var enemy_shieldbearer = UnitGenerator.random_shieldbearer()
-	enemy_shieldbearer.battle_pos = BattlePosition.new(0,1)
+	enemy_shieldbearer.set_position(BattlePosition.new(Enums.Role.DEFENDERS, 0, 1))
 
 	var player_archer = UnitGenerator.random_archer()
-	player_archer.battle_pos = BattlePosition.new(1,1)
+	player_archer.set_position(BattlePosition.new(Enums.Role.ATTACKERS, 1, 1))
 	var player_swordsman = UnitGenerator.random_swordsman()
-	player_swordsman.battle_pos = BattlePosition.new(0,0)
+	player_swordsman.set_position(BattlePosition.new(Enums.Role.ATTACKERS, 0, 0))
 	var player_shieldbearer = UnitGenerator.random_shieldbearer()
-	player_shieldbearer.battle_pos = BattlePosition.new(0,1)
+	player_shieldbearer.set_position(BattlePosition.new(Enums.Role.ATTACKERS, 0, 1))
 	var attackers: Array[CombatUnit] = [player_archer, player_swordsman, player_shieldbearer]
 	var defenders: Array[CombatUnit] = [enemy_archer, enemy_shieldbearer, enemy_swordsman]
 	return Battle.new(attackers, defenders, true)

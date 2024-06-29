@@ -50,6 +50,7 @@ func player_turn() -> void:
 func enemy_turn() -> void:
 	# presumably play animation of starting the enemy turn
 	self.state = BattleState.ENEMY_TURN
+	hide_all_details()
 	clear_targets()
 	player_turn()
 
@@ -70,19 +71,29 @@ func setup_player_units(units: Array[CombatUnit]) -> void:
 		unit_view_lookup[unit] = unit_view
 
 func setup_units() -> void:
-	enemy_units[[0, 0]] = enemy00
-	enemy_units[[0, 1]] = enemy01
-	enemy_units[[0, 2]] = enemy02
-	enemy_units[[1, 0]] = enemy10
-	enemy_units[[1, 1]] = enemy11
-	enemy_units[[1, 2]] = enemy12
+	var player_role: Enums.Role
+	var enemy_role: Enums.Role
 
-	player_units[[0, 0]] = player00
-	player_units[[0, 1]] = player01
-	player_units[[0, 2]] = player02
-	player_units[[1, 0]] = player10
-	player_units[[1, 1]] = player11
-	player_units[[1, 2]] = player12
+	if battle.player_attacking:
+		player_role = Enums.Role.ATTACKERS
+		enemy_role = Enums.Role.DEFENDERS
+	else:
+		enemy_role = Enums.Role.ATTACKERS
+		player_role = Enums.Role.DEFENDERS
+
+	enemy_units[[enemy_role, 0, 0]] = enemy00
+	enemy_units[[enemy_role, 0, 1]] = enemy01
+	enemy_units[[enemy_role, 0, 2]] = enemy02
+	enemy_units[[enemy_role, 1, 0]] = enemy10
+	enemy_units[[enemy_role, 1, 1]] = enemy11
+	enemy_units[[enemy_role, 1, 2]] = enemy12
+
+	player_units[[player_role, 0, 0]] = player00
+	player_units[[player_role, 0, 1]] = player01
+	player_units[[player_role, 0, 2]] = player02
+	player_units[[player_role, 1, 0]] = player10
+	player_units[[player_role, 1, 1]] = player11
+	player_units[[player_role, 1, 2]] = player12
 
 	if battle.player_attacking:
 		setup_player_units(battle.attackers)
@@ -101,7 +112,7 @@ func on_unit_hover(unit: CombatUnitView) -> void:
 	print("%s got hovered!" % unit, state)
 	if state == BattleState.PLAYER_TURN_AWAITING_SELECTION:
 		unit.show_details()
-	elif state == BattleState.PLAYER_TURN_AWAITING_TARGET:
+	elif state == BattleState.PLAYER_TURN_AWAITING_TARGET and pending_combat_action.is_valid_target(unit.unit.battle_pos):
 		pending_combat_action.target = unit.unit
 		var impacted_units = pending_combat_action.find_impacted_units()
 		var harmed_units = impacted_units[0].keys()
@@ -114,19 +125,9 @@ func on_unit_hover(unit: CombatUnitView) -> void:
 			unit_view_lookup[helped_unit].select(Enums.SelectionType.IN_HELP)
 		for mixed_unit in mixed_units:
 			unit_view_lookup[mixed_unit].select(Enums.SelectionType.IN_BOTH)
-		
-		var source_unit = unit_view_lookup[pending_combat_action.source]
-		match [pending_combat_action.can_harm(), pending_combat_action.can_help()]:
-			[true, true]:
-				source_unit.select(Enums.SelectionType.OUT_BOTH)
-			[true, false]:
-				source_unit.select(Enums.SelectionType.OUT_HARM)
-			[false, true]:
-				source_unit.select(Enums.SelectionType.OUT_HELP)
 
 
 func on_unit_unhover(unit: CombatUnitView) -> void:
-	print("%s got unhovered!" % unit)
 	if state == BattleState.PLAYER_TURN_AWAITING_SELECTION:
 		unit.hide_details()
 	elif state == BattleState.PLAYER_TURN_AWAITING_TARGET:
@@ -139,11 +140,22 @@ func clear_targets() -> void:
 	for unit_view in unit_view_lookup.values():
 		unit_view.unselect()
 
+func hide_all_details() -> void:
+	for unit_view in unit_view_lookup.values():
+		unit_view.hide_details()
 
 func on_unit_click(unit: CombatUnitView) -> void:
 	print("%s got clicked!" % unit)
-	if not state == BattleState.PLAYER_TURN_AWAITING_TARGET:
+	# If we're not waiting on a target selection
+	if state != BattleState.PLAYER_TURN_AWAITING_TARGET:
 		return
+	# if it isn't a valid target, cancel the action... this would be better to just be on any click? or just on like an esc press
+	if not pending_combat_action.is_valid_target(unit.unit.battle_pos):
+		pending_combat_action = null
+		hide_all_details()
+		self.state = BattleState.PLAYER_TURN_AWAITING_SELECTION
+		return
+
 	self.pending_combat_action.target = unit.unit
 	print("%s is the target!" % unit)
 	exec_action()
@@ -151,17 +163,13 @@ func on_unit_click(unit: CombatUnitView) -> void:
 
 func on_unit_ability(ability: CombatAbility, unit: CombatUnitView) -> void:
 	print("%s got an ability %s clicked!" % [unit, ability])
-	if not state == BattleState.PLAYER_TURN_AWAITING_SELECTION:
+	if state != BattleState.PLAYER_TURN_AWAITING_SELECTION:
 		return
 	self.pending_combat_action = CombatAction.new(battle, unit.unit, ability)
 	self.state = BattleState.PLAYER_TURN_AWAITING_TARGET
 
 
 func exec_action() -> void:
-	# TODO: This execution doesn't update any of the views, only the underlying data.
-	# We could try doing something about that... or we can just update everything every state
-	# transition? No... I think it's better to explicitly update the unit when it's modified -
-	# because that is more compatible with adding future animations, etc
 	pending_combat_action.execute()
 	self.pending_combat_action = null
 	enemy_turn()

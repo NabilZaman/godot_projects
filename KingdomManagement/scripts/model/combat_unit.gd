@@ -1,11 +1,14 @@
 class_name CombatUnit
-extends Resource
+extends Node
 
 var unit_type: UnitType
 
 var commander: Commander
 var num_troops: int
 var max_troops: int
+
+var num_actions: int
+var max_actions: int
 
 var battle_pos: BattlePosition
 
@@ -14,6 +17,13 @@ var shields: int = 0
 # Unusued future features
 var equipment: Array = []
 var buffs: Array = []
+
+# signals for views to listen to
+signal troops_changed()
+signal shields_changed()
+signal actions_changed()
+signal died()
+
 
 func _avg(a: int, b: int) -> int:
 	return a + b / 2
@@ -31,11 +41,13 @@ func stats() -> CombatStats:
 	return combined
 
 func apply_damage(amount: int) -> void:
+	print("Taking damage!")
 	var adjusted_damage = amount
 	adjusted_damage = max(amount - shields, 0)
 	shields = max(shields - adjusted_damage, 0)
 
 	self.num_troops = max(self.num_troops - adjusted_damage, 0)
+	troops_changed.emit()
 	if self.num_troops == 0:
 		die()
 
@@ -43,13 +55,25 @@ func apply_damage(amount: int) -> void:
 #      shields acting as a free damage buffer
 func apply_shields(amount: int) -> void:
 	self.shields = max(shields, amount)
+	shields_changed.emit(shields)
 
 func apply_healing(amount: int) -> void:
 	self.num_troops = min(num_troops + amount, max_troops)
+	troops_changed.emit(num_troops)
+
+# special value -1 indicates that all actions should be consumed
+func consume_actions(num: int) -> void:
+	if num == -1:
+		self.num_actions = 0
+	else:
+		self.num_actions -= num
+	actions_changed.emit(num_actions)
 
 func die() -> void:
-	pass
+	died.emit()
 
+func set_position(pos: BattlePosition) -> void:
+	self.battle_pos = pos
 
 ## Combat Design Notes ##
 # attack_potency: unit-type-specific attribute, effectiely just a multiplier P
@@ -75,7 +99,7 @@ func die() -> void:
 ####
 
 func _init(unit_type: UnitType, commander: Commander,
-			troops: int, battle_pos: BattlePosition) -> void:
+			troops: int, battle_pos: BattlePosition = null) -> void:
 	self.unit_type = unit_type
 	self.commander = commander
 	self.max_troops = troops
