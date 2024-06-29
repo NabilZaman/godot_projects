@@ -15,6 +15,7 @@ var player_controlled: bool
 @onready var unit_count: Label = %UnitCount
 @onready var target_indicator: TargetIndicator = %TargetIndicator
 
+# signals up to battle scene
 signal hovered()
 signal unhovered()
 signal clicked()
@@ -26,16 +27,13 @@ signal ability_choice(ability: CombatAbility)
 # represent buffs?
 
 func hover() -> void:
-	# print("Got hovered!")
 	hovered.emit()
 
 func unhover() -> void:
-	# print("Got unhovered!")
 	unhovered.emit()
 
 func general_click() -> void:
 	clicked.emit()
-	# print("Got clicked!")
 
 func ability1() -> void:
 	ability_choice.emit(unit.unit_type.basic_ability())
@@ -48,40 +46,40 @@ func ability3() -> void:
 
 func show_details() -> void:
 	if player_controlled:
-		print("player!")
 		attacks.show()
-	else:
-		print("Not player!")
 
 func hide_details() -> void:
 	attacks.hide()
 
-#TODO: The target indicators need to move to the left if this is not player_controlled
 func select(selection_type: Enums.SelectionType) -> void:
 	target_indicator.show()
-	var flip := not player_controlled # npc units are mirrored
 	match selection_type:
-		Enums.SelectionType.OUT_HARM: # Invert outgoing arrows, default texture points in from player perspective
-			target_indicator.show_red(not flip)
-		Enums.SelectionType.OUT_HELP:
-			target_indicator.show_blue(not flip)
-		Enums.SelectionType.OUT_BOTH:
-			target_indicator.show_both(not flip)
 		Enums.SelectionType.IN_HARM:
-			target_indicator.show_red(flip)
+			target_indicator.show_red()
 		Enums.SelectionType.IN_HELP:
-			target_indicator.show_blue(flip)
+			target_indicator.show_blue()
 		Enums.SelectionType.IN_BOTH:
-			target_indicator.show_both(flip)
+			target_indicator.show_mixed()
 
 func unselect() -> void:
 	target_indicator.hide()
 
+func update_troops_display() -> void:
+	print("UPdating troops!")
+	healthbar.value = unit.num_troops
+	unit_count.text = "%d / %d" % [unit.num_troops, unit.max_troops]
+
+func update_shields_display() -> void:
+	pass # TODO: Display and updae shields
+
+func update_actions_display() -> void:
+	pass # TODO: Display and updae actions
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
 
+# TODO: Turn count is being presented
 func setup(unit: CombatUnit, player_controlled: bool):
 	self.enabled = true
 	self.unit = unit
@@ -90,8 +88,11 @@ func setup(unit: CombatUnit, player_controlled: bool):
 	commander_name.text = unit.commander.name
 	
 	healthbar.max_value = unit.max_troops
-	healthbar.value = unit.num_troops
-	unit_count.text = "%d / %d" % [unit.num_troops, unit.max_troops]
+	update_troops_display()
+
+	unit.troops_changed.connect(update_troops_display)
+	unit.shields_changed.connect(update_shields_display)
+	unit.actions_changed.connect(update_actions_display)
 
 	if unit.unit_type.basic_ability() == null:
 		attack1.hide()

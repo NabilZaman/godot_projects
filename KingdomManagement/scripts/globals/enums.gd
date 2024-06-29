@@ -11,7 +11,8 @@ enum UserResponse {CONFIRM, CANCEL}
 enum DamageType {PHYSICAL, MAGIC}
 enum TargetType {ENEMY_ANY, ENEMY_NEAR, ENEMY_FAR, ALLY_ANY, ALLY_NEAR, ALLY_FAR, SELF, ANY}
 enum EffectType {DAMAGE, HEAL, SHIELD, BUFF, DEBUFF, BATTLE}
-enum SelectionType {OUT_HARM, IN_HARM, OUT_HELP, IN_HELP, OUT_BOTH, IN_BOTH}
+enum SelectionType {IN_HARM, IN_HELP, IN_BOTH}
+enum Role {ATTACKERS, DEFENDERS}
 
 const ActionCost := {"FULL": 1.0, "HALF": 0.5,}
 const BorderStyles := {

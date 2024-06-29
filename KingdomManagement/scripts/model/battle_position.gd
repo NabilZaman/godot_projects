@@ -1,6 +1,8 @@
 class_name BattlePosition
 extends Resource
 
+var role: Enums.Role
+
 # row here indicates the front/backline of units.
 # row 0 is always the frontline, row1 is always the backline
 # visually these will be drawn differently (left/right)
@@ -14,16 +16,18 @@ var row: int
 var col: int
 
 static func from_array(pos: Array[int]):
-    assert(len(pos) == 2)
-    var row = pos[0]
-    var col = pos[1]
-    return BattlePosition.new(row, col)
+    assert(len(pos) == 3)
+    var role = pos[0]
+    var row = pos[1]
+    var col = pos[2]
+    return BattlePosition.new(role, row, col)
 
 func as_array() -> Array[int]:
-    return [row, col]
+    return [role, row, col]
 
-func _init(row: int, col: int) -> void:
+func _init(role: Enums.Role, row: int, col: int) -> void:
     assert(0 <= row and row <= 2)
     assert(0 <= col and col <= 2)
+    self.role = role
     self.row = row
     self.col = col
