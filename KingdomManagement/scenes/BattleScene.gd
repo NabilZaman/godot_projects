@@ -1,27 +1,33 @@
 class_name BattleScene
 extends CanvasLayer
 
+
+
 # Player Units
-@onready var player00 = %playerunit00
-@onready var player01 = %playerunit01
-@onready var player02 = %playerunit02
-@onready var player10 = %playerunit10
-@onready var player11 = %playerunit11
-@onready var player12 = %playerunit12
+@onready var player00: CombatUnitView = %playerunit00
+@onready var player01: CombatUnitView = %playerunit01
+@onready var player02: CombatUnitView = %playerunit02
+@onready var player10: CombatUnitView = %playerunit10
+@onready var player11: CombatUnitView = %playerunit11
+@onready var player12: CombatUnitView = %playerunit12
 
 var player_units: Dictionary = {}
 
 # Enemy Units
-@onready var enemy00 = %enemyunit00
-@onready var enemy01 = %enemyunit01
-@onready var enemy02 = %enemyunit02
-@onready var enemy10 = %enemyunit10
-@onready var enemy11 = %enemyunit11
-@onready var enemy12 = %enemyunit12
+@onready var enemy00: CombatUnitView = %enemyunit00
+@onready var enemy01: CombatUnitView = %enemyunit01
+@onready var enemy02: CombatUnitView = %enemyunit02
+@onready var enemy10: CombatUnitView = %enemyunit10
+@onready var enemy11: CombatUnitView = %enemyunit11
+@onready var enemy12: CombatUnitView = %enemyunit12
 
 var enemy_units: Dictionary = {}
 
 var unit_view_lookup: Dictionary = {}
+
+@onready var morale_bar: TextureProgressBar = %MoraleBar
+@onready var turn_value: Label = %TurnsValue
+
 
 # These states are used to determine how inputs should be treated
 enum BattleState {
@@ -37,7 +43,8 @@ var pending_combat_action: CombatAction
 
 func _ready() -> void:
 	setup_units()
-	play_intro()
+	if battle:
+		play_intro()
 
 func play_intro() -> void:
 	# presumably play some intro animation of lining up units/battle graphics
@@ -46,12 +53,15 @@ func play_intro() -> void:
 func player_turn() -> void:
 	# presumably play animation of starting the player turn
 	self.state = BattleState.PLAYER_TURN_AWAITING_SELECTION
+	battle.advance_turns()
 
 func enemy_turn() -> void:
 	# presumably play animation of starting the enemy turn
 	self.state = BattleState.ENEMY_TURN
 	hide_all_details()
 	clear_targets()
+	battle.advance_turns()
+	# This should eventually use the turn order, not just flip turns
 	player_turn()
 
 func setup_npc_units(units: Array[CombatUnit]) -> void:
@@ -107,6 +117,7 @@ func hookup_unit_signals(unit: CombatUnitView) -> void:
 	unit.unhovered.connect(on_unit_unhover.bind(unit))
 	unit.clicked.connect(on_unit_click.bind(unit))
 	unit.ability_choice.connect(on_unit_ability.bind(unit))
+	unit.died.connect(on_unit_died.bind(unit))
 
 func on_unit_hover(unit: CombatUnitView) -> void:
 	print("%s got hovered!" % unit, state)
@@ -168,13 +179,65 @@ func on_unit_ability(ability: CombatAbility, unit: CombatUnitView) -> void:
 	self.pending_combat_action = CombatAction.new(battle, unit.unit, ability)
 	self.state = BattleState.PLAYER_TURN_AWAITING_TARGET
 
+func win() -> void:
+	pass
+
+func lose() -> void:
+	pass
+
+func check_end_condition() -> void:
+	if battle.morale == 0.0:
+		lose()
+	if battle.morale == 100.0:
+		win()
+		
+func update_morale_display() -> void:
+	morale_bar.value = battle.morale
+
+func update_turn_display() -> void:
+	turn_value.text = "%d / %d" % [battle.turn_count, battle.turn_limit]
+
+func push_back_row_forward() -> void:
+	pass # swap front and back row units then "refresh" the unit
+
+func on_unit_died(unit: CombatUnitView) -> void:
+	if unit.unit.battle_pos.row == 1:
+		return # No need to do anything if back row unit died
+	
+	# check if we need to move the back row up
+	var team: Dictionary
+	if unit.player_controlled:
+		team = player_units
+	else:
+		team = enemy_units
+	for pos in team:
+		var teammate: CombatUnitView = team[pos]
+		if pos.row == 0 and not teammate.is_dead:
+			return # found a living front-row unit, nothing to do
+	push_back_row_forward()
+
 
 func exec_action() -> void:
+	# Execute the pending action
 	pending_combat_action.execute()
 	self.pending_combat_action = null
+
+	# update the morale if necessary
+	battle.recompute_morale()
+
+	# TODO: deal with dead units
+	# TODO: deal with cleared rows (move back row up if front row is cleared)
+	# TODO: deal with victory condition
+
+	# This should eventually use the turn order, not just flip turns
 	enemy_turn()
 
 
 func setup(battle: Battle) -> void:
 	self.battle = battle
+	if state == BattleState.INTRO:
+		play_intro()
+	battle.morale_changed.connect(update_morale_display)
+	battle.morale_changed.connect(check_end_condition)
+	battle.turns_changed.connect(update_turn_display)
 

@@ -55,11 +55,11 @@ func apply_damage(amount: int) -> void:
 #      shields acting as a free damage buffer
 func apply_shields(amount: int) -> void:
 	self.shields = max(shields, amount)
-	shields_changed.emit(shields)
+	shields_changed.emit()
 
 func apply_healing(amount: int) -> void:
 	self.num_troops = min(num_troops + amount, max_troops)
-	troops_changed.emit(num_troops)
+	troops_changed.emit()
 
 # special value -1 indicates that all actions should be consumed
 func consume_actions(num: int) -> void:
@@ -67,7 +67,7 @@ func consume_actions(num: int) -> void:
 		self.num_actions = 0
 	else:
 		self.num_actions -= num
-	actions_changed.emit(num_actions)
+	actions_changed.emit()
 
 func die() -> void:
 	died.emit()

@@ -14,12 +14,17 @@ var player_controlled: bool
 @onready var healthbar: TextureProgressBar = %HealthBar
 @onready var unit_count: Label = %UnitCount
 @onready var target_indicator: TargetIndicator = %TargetIndicator
+@onready var shield_info: Control = %ShieldsInfo
+@onready var shield_label: Label = %ShieldsValue
 
 # signals up to battle scene
 signal hovered()
 signal unhovered()
 signal clicked()
 signal ability_choice(ability: CombatAbility)
+signal died()
+
+var is_dead: bool
 
 # TODO:
 # represent shields(!)
@@ -70,19 +75,32 @@ func update_troops_display() -> void:
 	unit_count.text = "%d / %d" % [unit.num_troops, unit.max_troops]
 
 func update_shields_display() -> void:
-	pass # TODO: Display and updae shields
+	print("Updating shields!")
+	if unit.shields > 0:
+		shield_info.show()
+		shield_label.text = str(unit.shields)
+	else:
+		shield_info.hide()
+
+func on_death() -> void:
+	self.is_dead = true
+	self.hide()
+	died.emit()
 
 func update_actions_display() -> void:
-	pass # TODO: Display and updae actions
+	pass # TODO: Display and update actions
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
 
-# TODO: Turn count is being presented
+func refresh() -> void:
+	pass # refresh all of the UI elements with respect to the unit
+
 func setup(unit: CombatUnit, player_controlled: bool):
 	self.enabled = true
 	self.unit = unit
+	self.is_dead = false
 	self.player_controlled = player_controlled
 	
 	commander_name.text = unit.commander.name
@@ -93,6 +111,7 @@ func setup(unit: CombatUnit, player_controlled: bool):
 	unit.troops_changed.connect(update_troops_display)
 	unit.shields_changed.connect(update_shields_display)
 	unit.actions_changed.connect(update_actions_display)
+	unit.died.connect(on_death)
 
 	if unit.unit_type.basic_ability() == null:
 		attack1.hide()

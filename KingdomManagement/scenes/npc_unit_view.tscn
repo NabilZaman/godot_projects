@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bu8lhjtt618oi"]
+[gd_scene load_steps=13 format=3 uid="uid://bu8lhjtt618oi"]
 
 [ext_resource type="Script" path="res://scenes/combat_unit_view.gd" id="1_ycjwd"]
 [ext_resource type="Texture2D" uid="uid://dtufnt1cu850q" path="res://sprites/InfoFrame.png" id="2_vervo"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dus34kqbtb8gr" path="res://sprites/Icons/healthbar.png" id="4_es8ie"]
 [ext_resource type="Script" path="res://scenes/TargetIndicator.gd" id="5_i73mi"]
 [ext_resource type="Texture2D" uid="uid://dn5gy10sisr24" path="res://sprites/Icons/double_arrow_blue.png" id="6_ngp05"]
+[ext_resource type="Texture2D" uid="uid://d28sxwwyfl0lc" path="res://sprites/Icons/Shield Icon.png" id="7_jumgv"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cjf6i"]
 texture = ExtResource("2_vervo")
@@ -76,20 +77,20 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_cjf6i")
 
 [node name="portrait_box" type="TextureRect" parent="UnitBox"]
 layout_mode = 0
-offset_left = 212.0
-offset_top = 39.5
-offset_right = 366.0
-offset_bottom = 186.5
+offset_left = 224.0
+offset_top = 23.5
+offset_right = 361.0
+offset_bottom = 154.5
 texture = SubResource("CanvasTexture_jm5mh")
 
 [node name="portrait" type="TextureRect" parent="UnitBox/portrait_box"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-offset_left = 23.0
-offset_top = 15.0
-offset_right = 130.0
-offset_bottom = 128.0
+offset_left = 15.0
+offset_top = 6.5
+offset_right = 122.0
+offset_bottom = 119.5
 size_flags_horizontal = 0
 size_flags_vertical = 0
 texture = ExtResource("3_7pdn6")
@@ -97,18 +98,19 @@ texture = ExtResource("3_7pdn6")
 [node name="CommanderName" type="Label" parent="UnitBox"]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 212.0
-offset_top = 12.5
-offset_right = 359.0
-offset_bottom = 35.5
+offset_left = 218.0
+offset_top = 0.5
+offset_right = 365.0
+offset_bottom = 23.5
 text = "Commander Name"
 
 [node name="HealthInfo" type="VBoxContainer" parent="UnitBox"]
 layout_mode = 0
-offset_left = 9.0
-offset_top = 165.5
-offset_right = 201.0
-offset_bottom = 219.5
+offset_left = 11.0
+offset_top = 167.5
+offset_right = 203.0
+offset_bottom = 221.5
+theme_override_constants/separation = 0
 alignment = 1
 
 [node name="HealthBar" type="TextureProgressBar" parent="UnitBox/HealthInfo"]
@@ -121,6 +123,38 @@ texture_progress = ExtResource("4_es8ie")
 unique_name_in_owner = true
 layout_mode = 2
 text = "0 / 100"
+horizontal_alignment = 1
+
+[node name="ShieldsInfo" type="Control" parent="UnitBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 206.0
+offset_top = 167.5
+offset_right = 243.0
+offset_bottom = 210.5
+
+[node name="ShieldsIcon" type="TextureRect" parent="UnitBox/ShieldsInfo"]
+layout_mode = 1
+offset_right = 37.0
+offset_bottom = 43.0
+texture = ExtResource("7_jumgv")
+expand_mode = 1
+
+[node name="ShieldsValue" type="Label" parent="UnitBox/ShieldsInfo"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -3.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "100"
 horizontal_alignment = 1
 
 [node name="clickbox" type="Button" parent="UnitBox"]
