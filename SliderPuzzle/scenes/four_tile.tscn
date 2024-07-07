@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8ouj670eothy"]
+
+[ext_resource type="Texture2D" uid="uid://iee5tbc1dqrk" path="res://assets/4-tile.png" id="1_oa65v"]
+[ext_resource type="Script" path="res://scripts/four_tile.gd" id="2_cmxp3"]
+
+[node name="FourTile" type="TextureButton"]
+offset_right = 200.0
+offset_bottom = 200.0
+texture_normal = ExtResource("1_oa65v")
+script = ExtResource("2_cmxp3")
+pos = Vector2i(1, 2)
+
+[connection signal="button_down" from="." to="." method="on_selected"]
+[connection signal="button_up" from="." to="." method="on_unselected"]
