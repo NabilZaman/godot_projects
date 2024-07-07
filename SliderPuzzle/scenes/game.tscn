@@ -1,0 +1,108 @@
+[gd_scene load_steps=7 format=3 uid="uid://ik1gafa26te8"]
+
+[ext_resource type="Texture2D" uid="uid://c23f37mb700dw" path="res://assets/4x5Board.png" id="1_fjbp7"]
+[ext_resource type="PackedScene" uid="uid://ee1lisrt8kdd" path="res://scenes/one_tile.tscn" id="2_2k1co"]
+[ext_resource type="Script" path="res://scenes/GameGrid.gd" id="2_pogoj"]
+[ext_resource type="PackedScene" uid="uid://dr4u3qr3cloud" path="res://scenes/two_v_tile.tscn" id="3_hea46"]
+[ext_resource type="PackedScene" uid="uid://c75c2hqwqbx1t" path="res://scenes/two_h_tile.tscn" id="4_ta158"]
+[ext_resource type="PackedScene" uid="uid://b8ouj670eothy" path="res://scenes/four_tile.tscn" id="5_k7veb"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+offset = Vector2(-15, -15)
+transform = Transform2D(1, 0, 0, 1, -15, -15)
+
+[node name="Game" type="Control" parent="."]
+custom_minimum_size = Vector2(430, 530)
+layout_mode = 3
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="Game"]
+custom_minimum_size = Vector2(430, 530)
+layout_mode = 2
+offset_right = 430.0
+offset_bottom = 530.0
+texture = ExtResource("1_fjbp7")
+
+[node name="GameGrid" type="Control" parent="Game"]
+unique_name_in_owner = true
+layout_mode = 2
+anchors_preset = 0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 445.0
+offset_bottom = 445.0
+script = ExtResource("2_pogoj")
+
+[node name="OneTileA" parent="Game/GameGrid" instance=ExtResource("2_2k1co")]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 200.0
+offset_right = 300.0
+offset_bottom = 300.0
+pos = Vector2i(2, 2)
+
+[node name="OneTileB" parent="Game/GameGrid" instance=ExtResource("2_2k1co")]
+layout_mode = 0
+offset_left = 300.0
+offset_top = 200.0
+offset_right = 400.0
+offset_bottom = 300.0
+pos = Vector2i(3, 2)
+
+[node name="TwoVTileA" parent="Game/GameGrid" instance=ExtResource("3_hea46")]
+layout_mode = 0
+pos = Vector2i(0, 0)
+
+[node name="TwoVTileB" parent="Game/GameGrid" instance=ExtResource("3_hea46")]
+layout_mode = 0
+offset_left = 100.0
+offset_right = 200.0
+pos = Vector2i(1, 0)
+
+[node name="TwoHTile" parent="Game/GameGrid" instance=ExtResource("4_ta158")]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 300.0
+offset_right = 400.0
+offset_bottom = 400.0
+pos = Vector2i(2, 3)
+
+[node name="FourTile" parent="Game/GameGrid" instance=ExtResource("5_k7veb")]
+layout_mode = 0
+offset_left = 200.0
+offset_right = 400.0
+pos = Vector2i(2, 0)
+
+[node name="OneTileC" parent="Game/GameGrid" instance=ExtResource("2_2k1co")]
+layout_mode = 0
+offset_top = 400.0
+offset_right = 100.0
+offset_bottom = 500.0
+pos = Vector2i(0, 4)
+
+[node name="OneTileD" parent="Game/GameGrid" instance=ExtResource("2_2k1co")]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 400.0
+offset_right = 200.0
+offset_bottom = 500.0
+pos = Vector2i(1, 4)
+
+[node name="TwoVTileC" parent="Game/GameGrid" instance=ExtResource("3_hea46")]
+layout_mode = 0
+offset_top = 200.0
+offset_bottom = 400.0
+pos = Vector2i(0, 2)
+
+[node name="TwoVTileD" parent="Game/GameGrid" instance=ExtResource("3_hea46")]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 200.0
+offset_right = 200.0
+offset_bottom = 400.0
+pos = Vector2i(1, 2)
