@@ -69,6 +69,18 @@ func can_move_down() -> bool:
             return false
     return true
 
+func move_left() -> void:
+    self.pos += Vector2i(-1, 0)
+
+func move_right() -> void:
+    self.pos += Vector2i(1, 0)
+
+func move_up() -> void:
+    self.pos += Vector2i(0, 1)
+
+func move_down() -> void:
+    self.pos += Vector2i(0, -1)
+
 # The highest y value allowed: either the current grid value or the grid value of the position above us if we can move up
 func get_up_bound() -> float:
     if can_move_up():
@@ -96,6 +108,10 @@ func get_right_bound() -> float:
         return grid_to_global_pos(pos + Vector2i(1, 0)).x
     else:
         return grid_to_global_pos(pos).x
+
+
+func update_global_pos() -> void:
+    self.position = grid_to_global_pos(self.pos)
 
 
 func update_grid_pos() -> void:
