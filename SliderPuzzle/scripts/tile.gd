@@ -69,6 +69,18 @@ func can_move_down() -> bool:
             return false
     return true
 
+func can_move_dir(dir: Enums.Direction) -> bool:
+    match dir:
+        Enums.Direction.LEFT:
+            return can_move_left()
+        Enums.Direction.RIGHT:
+            return can_move_right()
+        Enums.Direction.UP:
+            return can_move_up()
+        Enums.Direction.DOWN:
+            return can_move_down()
+    return false
+
 func move_left() -> void:
     self.pos += Vector2i(-1, 0)
 
@@ -76,10 +88,21 @@ func move_right() -> void:
     self.pos += Vector2i(1, 0)
 
 func move_up() -> void:
-    self.pos += Vector2i(0, 1)
+    self.pos += Vector2i(0, -1)
 
 func move_down() -> void:
-    self.pos += Vector2i(0, -1)
+    self.pos += Vector2i(0, 1)
+
+func move_dir(dir: Enums.Direction) -> void:
+    match dir:
+        Enums.Direction.LEFT:
+            move_left()
+        Enums.Direction.RIGHT:
+            move_right()
+        Enums.Direction.UP:
+            move_up()
+        Enums.Direction.DOWN:
+            move_down()
 
 # The highest y value allowed: either the current grid value or the grid value of the position above us if we can move up
 func get_up_bound() -> float:
@@ -110,20 +133,23 @@ func get_right_bound() -> float:
         return grid_to_global_pos(pos).x
 
 
-func update_global_pos() -> void:
-    self.position = grid_to_global_pos(self.pos)
+func update_global_pos(should_tween: bool = false) -> void:
+    var new_position := grid_to_global_pos(self.pos)
+    if should_tween:
+        var tween = get_tree().create_tween()
+        tween.tween_property(self, "position", new_position, Config.STEP_TIME_SEC)
+    else:
+        self.position = new_position
 
 
 func update_grid_pos() -> void:
     var old_pos := pos    
     self.pos = global_to_grid_pos(self.position)
     if old_pos != pos:
-        print("pos used to be %s but is now %s" % [str(old_pos), str(pos)])
         grid.update_occupied()
 
 
 func on_selected() -> void:
-    print("You picked me! " + self.name)
     # record the mouse position
     self.selected_pos = get_viewport().get_mouse_position()
     self.selected_grid_pos = pos
@@ -131,7 +157,6 @@ func on_selected() -> void:
     
 
 func on_unselected() -> void:
-    print("You unpicked me! " + self.name)
     # reset the position of this tile to the grid position
     self.position = grid_to_global_pos(pos)
     self.am_selected = false
@@ -151,7 +176,6 @@ func _process(_delta: float) -> void:
         var bounded_y = clamp(projection.y, get_up_bound(), get_down_bound())
         self.position = Vector2(bounded_x, bounded_y)
         update_grid_pos()
-        
 
 
 # Returns the difference between where the mouse began and ended its movement.

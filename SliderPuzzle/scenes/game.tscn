@@ -122,4 +122,17 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 36
 text = "SOLVE"
 
+[node name="MoveCount" type="Label" parent="Game"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = 30.0
+grow_horizontal = 2
+text = "Moves: 0"
+horizontal_alignment = 1
+
 [connection signal="pressed" from="Game/SolveButton" to="Game" method="solve_puzzle"]

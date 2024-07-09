@@ -16,6 +16,11 @@ run/main_scene="res://scenes/game.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Enums="*res://scripts/globals/enums.gd"
+Config="*res://scripts/globals/config.gd"
+
 [debug]
 
 gdscript/warnings/shadowed_variable=0
