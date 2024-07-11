@@ -19,12 +19,14 @@ static func sort_dupes(positions: Array[Vector2i]) -> void:
         positions[6 + i] = blues[i]
 
 static func from_array(positions: Array[Vector2i]) -> GridState:
-    GridState.sort_dupes(positions)
     return GridState.new(positions)
 
 # Array of (10) grid positions
-func as_array() -> Array[Vector2i]:
-    return positions    
+func as_array(normalize: bool = true) -> Array[Vector2i]:
+    var result = positions.duplicate()
+    if normalize:
+        GridState.sort_dupes(result)
+    return result
 
 func _init(positions: Array[Vector2i]) -> void:
     self.positions = positions

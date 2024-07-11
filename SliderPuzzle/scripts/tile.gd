@@ -12,6 +12,8 @@ var am_selected := false
 var selected_pos: Vector2
 var selected_grid_pos: Vector2i
 
+signal moved()
+
 func grid_to_global_pos(grid_pos: Vector2i) -> Vector2:
     return Vector2(grid_pos.x * CELL_WIDTH, grid_pos.y * CELL_HEIGHT)
 
@@ -143,10 +145,10 @@ func update_global_pos(should_tween: bool = false) -> void:
 
 
 func update_grid_pos() -> void:
-    var old_pos := pos    
+    var old_pos := pos
     self.pos = global_to_grid_pos(self.position)
     if old_pos != pos:
-        grid.update_occupied()
+        moved.emit()
 
 
 func on_selected() -> void:
