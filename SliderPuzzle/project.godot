@@ -24,13 +24,17 @@ Config="*res://scripts/globals/config.gd"
 [debug]
 
 gdscript/warnings/shadowed_variable=0
+gdscript/warnings/integer_division=0
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/mode=2
 window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray()
 
 [rendering]
 

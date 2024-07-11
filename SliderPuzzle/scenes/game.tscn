@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ik1gafa26te8"]
+[gd_scene load_steps=9 format=3 uid="uid://ik1gafa26te8"]
 
 [ext_resource type="Texture2D" uid="uid://c23f37mb700dw" path="res://assets/4x5Board.png" id="1_fjbp7"]
 [ext_resource type="Script" path="res://scenes/Game.gd" id="1_vjjwh"]
@@ -7,6 +7,18 @@
 [ext_resource type="PackedScene" uid="uid://dr4u3qr3cloud" path="res://scenes/two_v_tile.tscn" id="3_hea46"]
 [ext_resource type="PackedScene" uid="uid://c75c2hqwqbx1t" path="res://scenes/two_h_tile.tscn" id="4_ta158"]
 [ext_resource type="PackedScene" uid="uid://b8ouj670eothy" path="res://scenes/four_tile.tscn" id="5_k7veb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j6jq3"]
+bg_color = Color(0.737119, 0.509245, 0.727546, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="CanvasLayer" type="CanvasLayer"]
 offset = Vector2(-15, -15)
@@ -110,17 +122,29 @@ offset_right = 200.0
 offset_bottom = 500.0
 pos = Vector2i(1, 4)
 
-[node name="SolveButton" type="Button" parent="Game"]
+[node name="ExhaustiveSolveButton" type="Button" parent="Game"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
 anchor_right = 0.5
-offset_bottom = -35.0
+offset_bottom = -15.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 36
-text = "SOLVE"
+text = "SLOW SOLVE"
+
+[node name="DirectSolveButton" type="Button" parent="Game"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_bottom = -85.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 36
+text = "FAST SOLVE"
 
 [node name="MoveCount" type="Label" parent="Game"]
 unique_name_in_owner = true
@@ -135,4 +159,42 @@ grow_horizontal = 2
 text = "Moves: 0"
 horizontal_alignment = 1
 
-[connection signal="pressed" from="Game/SolveButton" to="Game" method="solve_puzzle"]
+[node name="Blocker" type="Control" parent="Game"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -150.0
+
+[node name="ThinkingBox" type="Panel" parent="Game"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.4
+anchor_right = 1.0
+anchor_bottom = 0.6
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_j6jq3")
+
+[node name="ThinkingLabel" type="Label" parent="Game/ThinkingBox"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -41.5
+offset_right = 150.0
+offset_bottom = 41.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 60
+text = "Thinking..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="Game/ExhaustiveSolveButton" to="Game" method="solve_puzzle_slow"]
+[connection signal="pressed" from="Game/DirectSolveButton" to="Game" method="solve_puzzle_fast"]
