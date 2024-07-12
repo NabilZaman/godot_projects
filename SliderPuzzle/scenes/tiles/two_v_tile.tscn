@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dr4u3qr3cloud"]
 
 [ext_resource type="Texture2D" uid="uid://bsinhq0ym238v" path="res://assets/2V-tile.png" id="1_xxwaq"]
-[ext_resource type="Script" path="res://scripts/two_v_tile.gd" id="2_mwisa"]
+[ext_resource type="Script" path="res://scenes/tiles/tile_node.gd" id="2_mwisa"]
 
 [node name="TwoVTileA" type="TextureButton"]
 offset_right = 100.0

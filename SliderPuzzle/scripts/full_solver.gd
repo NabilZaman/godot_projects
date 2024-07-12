@@ -1,7 +1,7 @@
 class_name FullSolver
 extends Solver
 
-var grid: GameGrid
+var grid: TileGrid
 
 # map from GridState -> bool
 var seen_states: Dictionary
@@ -18,13 +18,13 @@ func check_and_mark_grid_scene() -> bool:
     return false
 
 # returns if move was possible
-func add_tile_move_if_possible(cur_state: GridState, tile: Tile, dir: Enums.Direction) -> bool:
+func add_tile_move_if_possible(grid: TileGrid, cur_state: GridState, tile: Tile, tile_index: int, dir: Enums.Direction) -> bool:
     var rev := Enums.rev_dir(dir)
     var move_possible := false
-    if tile.can_move_dir(dir):
+    if grid.can_tile_move_dir(tile, dir):
         tile.move_dir(dir)
         if check_and_mark_grid_scene():
-            next_moves.append(StateTransition.new(cur_state, tile, dir))
+            next_moves.append(StateTransition.new(cur_state, tile_index, dir))
             move_possible = true
         tile.move_dir(rev)
     return move_possible
@@ -33,9 +33,11 @@ func add_tile_move_if_possible(cur_state: GridState, tile: Tile, dir: Enums.Dire
 func add_next_moves() -> bool:
     var any_move_possible := false
     var cur_state := grid.dump_state()
-    for tile in grid.get_tiles():
+    var tiles := grid.get_tiles()
+    for i in range(tiles.size()):
+        var tile := tiles[i]
         for dir in Enums.Direction.values():
-            any_move_possible = add_tile_move_if_possible(cur_state, tile, dir) or any_move_possible
+            any_move_possible = add_tile_move_if_possible(grid, cur_state, tile, i, dir) or any_move_possible
     return any_move_possible
 
 # returns if the next move is from the current state
@@ -45,13 +47,11 @@ func next_move_from_here() -> bool:
     return grid.dump_state().as_array() == next_moves[-1].initial_state.as_array()
     
 func make_move(transition: StateTransition) -> void:
-    transition.tile.move_dir(transition.direction)
-    transition.tile.update_global_pos(true)
+    grid.get_tiles()[transition.tile_index].move_dir(transition.direction)
     move_history.append(transition)
 
 func undo_move(transition: StateTransition) -> void:
-    transition.tile.move_dir(Enums.rev_dir(transition.direction))
-    transition.tile.update_global_pos(true)
+    grid.get_tiles()[transition.tile_index].move_dir(Enums.rev_dir(transition.direction))
 
 # Override
 # evolves the grid by one step in the solution
@@ -73,6 +73,6 @@ func step() -> bool:
 
     return false
 
-func _init(grid: GameGrid) -> void:
+func _init(grid: TileGrid) -> void:
     self.grid = grid
 
