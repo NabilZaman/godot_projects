@@ -16,7 +16,7 @@ func global_to_grid_pos(global_pos: Vector2) -> Vector2i:
     return Vector2i(xpos, ypos)
 
 
-var INITIAL_TILE_POSITIONS = [
+var INITIAL_TILE_POSITIONS: Array[Vector2i] = [
     Vector2i(2, 0),
     Vector2i(2, 3),
     Vector2i(0, 0),
@@ -27,4 +27,17 @@ var INITIAL_TILE_POSITIONS = [
     Vector2i(3, 2),
     Vector2i(0, 4),
     Vector2i(1, 4),
+]
+
+var FINAL_SOLUTION_POSITIONS: Array[Vector2i] = [
+    Vector2i(1, 3),
+    Vector2i(0, 2),
+    Vector2i(0, 0),
+    Vector2i(3, 1),
+    Vector2i(1, 0),
+    Vector2i(2, 1),
+    Vector2i(0, 3),
+    Vector2i(3, 0),
+    Vector2i(0, 4),
+    Vector2i(2, 0),
 ]

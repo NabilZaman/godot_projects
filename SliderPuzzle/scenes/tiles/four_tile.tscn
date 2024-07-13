@@ -8,7 +8,6 @@ offset_right = 200.0
 offset_bottom = 200.0
 texture_normal = ExtResource("1_oa65v")
 script = ExtResource("2_cmxp3")
-pos = Vector2i(1, 2)
 
 [connection signal="button_down" from="." to="." method="on_selected"]
 [connection signal="button_up" from="." to="." method="on_unselected"]

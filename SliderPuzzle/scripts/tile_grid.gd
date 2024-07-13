@@ -99,6 +99,18 @@ func dump_state() -> GridState:
         grid_positions.append(child.pos)
     return GridState.from_array(grid_positions)
 
+static func from_state(state: GridState) -> TileGrid:
+    var tiles: Array[Tile] = []
+    var grid_positions := state.as_array(false)
+    tiles.append(FourTile.new(grid_positions[0]))
+    tiles.append(TwoHTile.new(grid_positions[1]))
+    for i in range(2, 6):
+        tiles.append(TwoVTile.new(grid_positions[i]))
+    for i in range(6, 10):
+        tiles.append(OneTile.new(grid_positions[i]))
+
+    return TileGrid.new(tiles)
+
 # detects if the grid has been won
 func has_won() -> bool:
     return four_tile.pos == Vector2i(1, 3)
