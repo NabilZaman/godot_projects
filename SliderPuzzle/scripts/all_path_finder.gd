@@ -10,12 +10,12 @@ var queue: Deque
 
 const LOG_PROGRESS := true
 
-func enqueue_neighbor_if_new(neighbor: GridState, cur_state: GridState, tile_index: int,
+func enqueue_neighbor_if_new(neighbor: GridState, cur_state: GridState, tile_pos: Vector2i,
 							direction: Enums.Direction, path_here: Array[StateTransition]) -> void:
 	var neighbor_array := neighbor.as_array()
 	if neighbor_array not in shortest_paths:
 		queue.append(neighbor)
-		var transition := StateTransition.new(cur_state, tile_index, direction)
+		var transition := StateTransition.new(cur_state, tile_pos, direction)
 		var new_path := path_here.duplicate()
 		new_path.append(transition)
 		shortest_paths[neighbor_array] = new_path
@@ -26,13 +26,13 @@ func enqueue_neighboring_states() -> void:
 	cur_path.assign(shortest_paths[cur_state.as_array()])
 
 	var tiles := grid.get_tiles()
-	for i in range(tiles.size()):
-		var tile := tiles[i]
+	for tile in tiles:
 		for dir in Enums.Direction.values():
 			var rev := Enums.rev_dir(dir)
 			if grid.can_tile_move_dir(tile, dir):
+				var old_pos := tile.pos
 				tile.move_dir(dir)
-				enqueue_neighbor_if_new(grid.dump_state(), cur_state, i, dir, cur_path)
+				enqueue_neighbor_if_new(grid.dump_state(), cur_state, old_pos, dir, cur_path)
 				tile.move_dir(rev)
 
 func compute_all_paths() -> void:
@@ -81,8 +81,11 @@ func get_path_from_state(target_state: GridState) -> Array[StateTransition]:
 	for i in range(forward_path.size()):
 		var forward_step := forward_path[i]
 		var rev_dir = Enums.rev_dir(forward_step.direction)
+		# Make a tile to measure the final state of this transition
+		var final_tile := Tile.new(forward_step.tile_pos)
+		final_tile.move_dir(forward_step.direction)
 		# The initial states are not needed to follow the path so we don't bother building them
-		rev_path.append(StateTransition.new(null, forward_step.tile_index, rev_dir))
+		rev_path.append(StateTransition.new(null, final_tile.pos, rev_dir))
 	rev_path.reverse()
 	# for transition in rev_path:
 	# 	print(transition.tile_index, "->", transition.direction)

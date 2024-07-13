@@ -1,7 +1,7 @@
 # class_name Config # Named in autoload
 extends Node
 
-const STEP_TIME_SEC = 0.1
+const STEP_TIME_SEC = 0.10
 
 const CELL_HEIGHT := 100
 const CELL_WIDTH := 100

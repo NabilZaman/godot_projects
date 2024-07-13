@@ -14,97 +14,11 @@ var solve_thread: Thread
 
 var moves_taken: int
 
-"""
-0->1   1->3
-6->1   8->3
-6->3   7->1
-1->3   5->1
-2->3   3->3
-4->3   3->3
-9->0   0->0
-7->0   7->2
-3->2   8->2
-9->0   7->2
-7->0   8->2
-5->2   5->1
-0->2   3->1
-6->1   9->2
-6->1   9->2
-8->1   6->1
-8->1   6->2
-1->3   1->0
-4->3   1->0
-7->3   3->3
-9->1   9->1
-2->2   5->3
-4->0   9->1
-0->0   0->3
-3->3   7->0
-3->3   8->2
-5->1   9->2
-7->1   7->0
-9->1   8->0
-2->1   9->2
-4->2   5->2
-4->2   5->2
-0->0   3->1
-8->2   6->1
-6->0   6->3
-3->3   0->3
-5->3   8->3
-8->2   7->1
-9->1   2->1
-7->2   4->2
-8->2   4->2
-0->1   0->0
-4->3   8->3
-4->3   7->3
-2->0   9->0
-7->0   8->3
-8->2   5->2
-0->2   3->2
-6->2   6->1
-6->0   8->3
-3->0   0->1
-5->3   4->3
-5->3   4->3
-9->3   2->0
-8->1   9->0
-7->1   7->0
-9->3   5->0
-8->3   3->2
-7->1   3->2
-0->2   0->1
-9->0   4->1
-5->2   2->3
-9->0   9->0
-3->2   7->2
-1->1   4->2
-1->1   1->2
-6->3   8->0
-6->0   8->0
-9->3   6->0
-9->3   6->0
-3->0   0->3
-5->0   5->3
-8->3   7->1
-7->3   9->1
-8->3   3->3
-7->3   7->1
-0->1   9->1
-3->2   4->2
-3->2   2->2
-5->0   1->2
-7->0   6->2
-8->2   6->0
-1->2   0->0
-"""
-
 func setup_grid():
 	# var new_grid := TileGrid.from_state(GridState.from_array(Config.FINAL_SOLUTION_POSITIONS))
 	var new_grid := TileGrid.from_state(GridState.from_array(Config.INITIAL_TILE_POSITIONS))
 	grid.set_grid(new_grid)
-	grid.refresh_tiles()
+	grid.refresh_tiles(false)
 
 # # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -117,6 +31,8 @@ func _ready() -> void:
 
 func step_solver() -> void:
 	add_move()
+	grid.tile_grid.renormalize()
+	grid.refresh_tiles(false)
 	if solver.step():
 		solve_timer.stop()
 		allow_inputs()

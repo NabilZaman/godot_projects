@@ -4,9 +4,6 @@ extends Resource
 const COLUMNS := 4
 const ROWS := 5
 
-# map from Vector2i -> Tile
-var tiles_map: Dictionary = {}
-
 # Tiles - order matters
 # For the 4 x 5, 10 tile puzzle, we have:
 # 1 red 2x2 piece
@@ -18,6 +15,16 @@ var four_tile: FourTile
 
 func get_tiles() -> Array[Tile]:
     return tiles
+
+func get_tile(index: int) -> Tile:
+    return tiles[index]
+
+func get_tile_at_pos(pos: Vector2i) -> Tile:
+    for tile in tiles:
+        if tile.pos == pos:
+            return tile
+    return null
+
 
 func is_occupied(pos: Vector2i) -> bool:
     for child in get_tiles():
@@ -85,10 +92,13 @@ func can_tile_move_dir(tile: Tile, dir: Enums.Direction) -> bool:
             return can_tile_move_down(tile)
     return false
 
+func renormalize() -> void:
+    load_state(dump_state())
+
 func load_state(state: GridState) -> void:
     # for each child, load its position from the state
     var children: Array[Tile] = get_tiles()
-    var new_positions: Array[Vector2i] = state.as_array(false)
+    var new_positions: Array[Vector2i] = state.as_array()
     for i in range(len(children)):
         var child := children[i]
         child.pos = new_positions[i]
@@ -101,7 +111,7 @@ func dump_state() -> GridState:
 
 static func from_state(state: GridState) -> TileGrid:
     var tiles: Array[Tile] = []
-    var grid_positions := state.as_array(false)
+    var grid_positions := state.as_array()
     tiles.append(FourTile.new(grid_positions[0]))
     tiles.append(TwoHTile.new(grid_positions[1]))
     for i in range(2, 6):
