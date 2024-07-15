@@ -12,9 +12,11 @@ var solving: bool
 var solver: Solver
 var path_finder: AllPathFinder
 var solve_timer: Timer
-var solve_thread: Thread
 
 var moves_taken: int
+
+var password_ready := false
+var knowledge_ready := false
 
 func setup_grid():
 	# var new_grid := TileGrid.from_state(GridState.from_array(Config.FINAL_SOLUTION_POSITIONS))
@@ -32,6 +34,17 @@ func _ready() -> void:
 	grid.move_made.connect(add_move)
 	self.path_finder = AllPathFinder.new(TileGrid.from_state(GridState.from_array(Config.FINAL_SOLUTION_POSITIONS)))
 	WorkerThreadPool.add_task(precompute_paths)
+	setup_password_handler()
+
+func setup_password_handler() -> void:
+	var password_reader = PasswordReader.new(Config.SOLUTION_PASSWORD)
+	self.add_child(password_reader)
+	password_reader.password_match.connect(on_password)
+
+func on_password() -> void:
+	password_ready = true
+	if knowledge_ready:
+		fast_solve_button.show()
 
 func precompute_paths() -> void:
 	path_finder.compute_all_paths()
@@ -76,8 +89,9 @@ func on_hint_request() -> void:
 func enable_knowledge() -> void:
 	Thread.set_thread_safety_checks_enabled(false)
 	hint_button.enable()
-	fast_solve_button.show()
-
+	knowledge_ready = true
+	if password_ready:
+		fast_solve_button.show()
 
 func block_inputs() -> void:
 	solving = true
@@ -96,7 +110,3 @@ func add_move() -> void:
 	self.moves_taken += 1
 	move_count.text = "Moves: %d" % moves_taken
 
-
-func _exit_tree():
-	if solve_thread:
-		solve_thread.wait_to_finish()
