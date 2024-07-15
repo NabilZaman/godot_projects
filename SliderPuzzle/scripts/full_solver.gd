@@ -1,7 +1,7 @@
 class_name FullSolver
 extends Solver
 
-var grid: GameGrid
+var grid: TileGrid
 
 # map from GridState -> bool
 var seen_states: Dictionary
@@ -10,7 +10,7 @@ var move_history: Array[StateTransition]
 var backtracking := false
 
 # returns whether this state has not yet been seen
-func check_and_mark_grid_scene() -> bool:
+func check_and_mark_grid_seen() -> bool:
     var new_state := grid.dump_state().as_array()
     if new_state not in seen_states:
         seen_states[new_state] = true
@@ -21,10 +21,11 @@ func check_and_mark_grid_scene() -> bool:
 func add_tile_move_if_possible(cur_state: GridState, tile: Tile, dir: Enums.Direction) -> bool:
     var rev := Enums.rev_dir(dir)
     var move_possible := false
-    if tile.can_move_dir(dir):
+    if grid.can_tile_move_dir(tile, dir):
+        var old_pos = tile.pos
         tile.move_dir(dir)
-        if check_and_mark_grid_scene():
-            next_moves.append(StateTransition.new(cur_state, tile, dir))
+        if check_and_mark_grid_seen():
+            next_moves.append(StateTransition.new(cur_state, old_pos, dir))
             move_possible = true
         tile.move_dir(rev)
     return move_possible
@@ -45,13 +46,13 @@ func next_move_from_here() -> bool:
     return grid.dump_state().as_array() == next_moves[-1].initial_state.as_array()
     
 func make_move(transition: StateTransition) -> void:
-    transition.tile.move_dir(transition.direction)
-    transition.tile.update_global_pos(true)
-    move_history.append(transition)
+    var tile: Tile = grid.get_tile_at_pos(transition.tile_pos)
+    tile.move_dir(transition.direction)
+    var undoable_transition := StateTransition.new(null, tile.pos, transition.direction)
+    move_history.append(undoable_transition)
 
 func undo_move(transition: StateTransition) -> void:
-    transition.tile.move_dir(Enums.rev_dir(transition.direction))
-    transition.tile.update_global_pos(true)
+    grid.get_tile_at_pos(transition.tile_pos).move_dir(Enums.rev_dir(transition.direction))
 
 # Override
 # evolves the grid by one step in the solution
@@ -65,14 +66,17 @@ func step() -> bool:
     if next_move_from_here():
         make_move(next_moves.pop_back())
         backtracking = false
-    elif backtracking and not move_history.is_empty(): # otherwise, if we're backtracking, undo last move.
-        undo_move(move_history.pop_back())
-    elif not backtracking: # if we're not backtracking and we don't know the next move from here, it's a new position
+    elif backtracking: # otherwise, if we're backtracking, undo last move.
+        if move_history.is_empty():
+            return true
+        else:
+            undo_move(move_history.pop_back())
+    else: # if we're not backtracking and we don't know the next move from here, it's a new position
         backtracking = not add_next_moves()
         return step() # retry with the new moves considered
 
     return false
 
-func _init(grid: GameGrid) -> void:
+func _init(grid: TileGrid) -> void:
     self.grid = grid
 

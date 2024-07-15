@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://ee1lisrt8kdd"]
+
+[ext_resource type="Texture2D" uid="uid://c2rhstjur1ejx" path="res://assets/1-tile.png" id="1_ngeou"]
+[ext_resource type="Script" path="res://scenes/tiles/tile_node.gd" id="2_gf16d"]
+
+[node name="OneTileA" type="TextureButton"]
+texture_normal = ExtResource("1_ngeou")
+script = ExtResource("2_gf16d")
+
+[connection signal="button_down" from="." to="." method="on_selected"]
+[connection signal="button_up" from="." to="." method="on_unselected"]

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dr4u3qr3cloud"]
+
+[ext_resource type="Texture2D" uid="uid://bsinhq0ym238v" path="res://assets/2V-tile.png" id="1_xxwaq"]
+[ext_resource type="Script" path="res://scenes/tiles/tile_node.gd" id="2_mwisa"]
+
+[node name="TwoVTileA" type="TextureButton"]
+offset_right = 100.0
+offset_bottom = 200.0
+texture_normal = ExtResource("1_xxwaq")
+script = ExtResource("2_mwisa")
+pos = Vector2i(2, 0)
+
+[connection signal="button_down" from="." to="." method="on_selected"]
+[connection signal="button_up" from="." to="." method="on_unselected"]
