@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ik1gafa26te8"]
+[gd_scene load_steps=13 format=3 uid="uid://ik1gafa26te8"]
 
 [ext_resource type="Texture2D" uid="uid://c23f37mb700dw" path="res://assets/4x5Board.png" id="1_fjbp7"]
 [ext_resource type="Script" path="res://scenes/Game.gd" id="1_vjjwh"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dolpfp7tiae8s" path="res://assets/HintButton.png" id="8_un5n8"]
 [ext_resource type="Texture2D" uid="uid://dtx7yon25gnyq" path="res://assets/HintButtonClicked.png" id="9_agsqd"]
 [ext_resource type="Script" path="res://scenes/hint_button.gd" id="10_ppv3t"]
+[ext_resource type="AudioStream" uid="uid://cexe7uarhivso" path="res://assets/music/wondrous-waters-119518.mp3" id="11_ycqil"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j6jq3"]
 bg_color = Color(0.737119, 0.509245, 0.727546, 1)
@@ -229,6 +230,11 @@ theme_override_font_sizes/font_size = 60
 text = "Thinking..."
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Game"]
+stream = ExtResource("11_ycqil")
+autoplay = true
+bus = &"Music"
 
 [connection signal="pressed" from="Game/ExhaustiveSolveButton" to="Game" method="solve_puzzle_slow"]
 [connection signal="pressed" from="Game/DirectSolveButton" to="Game" method="solve_puzzle_fast"]

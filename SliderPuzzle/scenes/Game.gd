@@ -81,7 +81,9 @@ func fast_solve_exec() -> void:
 	solve_timer.start()
 
 func on_hint_request() -> void:
-	var step := self.path_finder.get_first_step_from_state(grid.tile_grid.dump_state())
+	var step := path_finder.get_first_step_from_state(grid.tile_grid.dump_state())
+	if step == null:
+		return
 	var tile := grid.tile_grid.get_tile_at_pos(step.tile_pos)
 	var node := grid.get_node_for_tile(tile)
 	grid.make_ghost_at_tile_in_dir(node, step.direction)

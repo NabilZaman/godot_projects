@@ -59,7 +59,11 @@ func compute_all_paths() -> void:
 	print("Found all paths in %.2f seconds!" % (Time.get_unix_time_from_system() - start_time))
 
 func get_first_step_from_state(target_state: GridState) -> StateTransition:
-	return get_path_from_state(target_state)[0]
+	var path_from_state := get_path_from_state(target_state)
+	if path_from_state.is_empty():
+		return null
+	else:
+		return path_from_state[0]
 
 # Determine if we've computed the path to a given state yet
 func has_path_to_state(target_state: GridState) -> bool:
@@ -67,6 +71,9 @@ func has_path_to_state(target_state: GridState) -> bool:
 
 # Get the shortest path to a given state from the initial state
 func get_path_to_state(target_state: GridState) -> Array[StateTransition]:
+	if not has_path_to_state(target_state):
+		var empty_path: Array[StateTransition] = []
+		return empty_path
 	return shortest_paths[target_state.as_array()]
 
 # Get the shortest path to the initial state from the given state
@@ -98,4 +105,5 @@ func _init(grid: TileGrid) -> void:
 	var cur_state := grid.dump_state()
 	self.queue = Deque.new()
 	self.queue.append(cur_state)
-	self.shortest_paths[cur_state.as_array()] = []
+	var empty_path: Array[StateTransition] = []
+	self.shortest_paths[cur_state.as_array()] = empty_path
