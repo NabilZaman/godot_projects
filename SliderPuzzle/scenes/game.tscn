@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ik1gafa26te8"]
+[gd_scene load_steps=12 format=3 uid="uid://ik1gafa26te8"]
 
 [ext_resource type="Texture2D" uid="uid://c23f37mb700dw" path="res://assets/4x5Board.png" id="1_fjbp7"]
 [ext_resource type="Script" path="res://scenes/Game.gd" id="1_vjjwh"]
@@ -7,6 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://dr4u3qr3cloud" path="res://scenes/tiles/two_v_tile.tscn" id="3_hea46"]
 [ext_resource type="PackedScene" uid="uid://c75c2hqwqbx1t" path="res://scenes/tiles/two_h_tile.tscn" id="4_ta158"]
 [ext_resource type="PackedScene" uid="uid://b8ouj670eothy" path="res://scenes/tiles/four_tile.tscn" id="5_k7veb"]
+[ext_resource type="Texture2D" uid="uid://dolpfp7tiae8s" path="res://assets/HintButton.png" id="8_un5n8"]
+[ext_resource type="Texture2D" uid="uid://dtx7yon25gnyq" path="res://assets/HintButtonClicked.png" id="9_agsqd"]
+[ext_resource type="Script" path="res://scenes/hint_button.gd" id="10_ppv3t"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j6jq3"]
 bg_color = Color(0.737119, 0.509245, 0.727546, 1)
@@ -113,6 +116,7 @@ offset_right = 200.0
 offset_bottom = 500.0
 
 [node name="ExhaustiveSolveButton" type="Button" parent="Game"]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -125,16 +129,53 @@ theme_override_font_sizes/font_size = 36
 text = "SLOW SOLVE"
 
 [node name="DirectSolveButton" type="Button" parent="Game"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Show Solution"
+
+[node name="HintButton" type="TextureButton" parent="Game"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
 anchor_right = 0.5
-offset_bottom = -85.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 36
-text = "FAST SOLVE"
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(150, 40)
+texture_normal = ExtResource("8_un5n8")
+texture_pressed = ExtResource("9_agsqd")
+script = ExtResource("10_ppv3t")
+
+[node name="HintLabel" type="Label" parent="Game/HintButton"]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0.478431)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "PREPARING HINTS"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="MoveCount" type="Label" parent="Game"]
 unique_name_in_owner = true
@@ -191,3 +232,4 @@ vertical_alignment = 1
 
 [connection signal="pressed" from="Game/ExhaustiveSolveButton" to="Game" method="solve_puzzle_slow"]
 [connection signal="pressed" from="Game/DirectSolveButton" to="Game" method="solve_puzzle_fast"]
+[connection signal="pressed" from="Game/HintButton" to="Game" method="on_hint_request"]

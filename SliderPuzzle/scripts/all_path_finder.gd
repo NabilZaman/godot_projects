@@ -49,8 +49,6 @@ func compute_all_paths() -> void:
 			print(len(shortest_paths))
 			print(queue.size())
 			print(len(cur_path))
-			# for j in range(min(5, queue._front.size())):
-			# 	print(queue._front[j].as_array(false))
 			print("=======")
 		var new_state = queue.pop_front()
 		grid.load_state(new_state)
@@ -59,6 +57,9 @@ func compute_all_paths() -> void:
 		enqueue_neighboring_states()
 
 	print("Found all paths in %.2f seconds!" % (Time.get_unix_time_from_system() - start_time))
+
+func get_first_step_from_state(target_state: GridState) -> StateTransition:
+	return get_path_from_state(target_state)[0]
 
 # Determine if we've computed the path to a given state yet
 func has_path_to_state(target_state: GridState) -> bool:

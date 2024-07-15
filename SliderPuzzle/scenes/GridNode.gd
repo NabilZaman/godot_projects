@@ -6,6 +6,8 @@ var grid_setup: bool
 
 var tile_to_node_map: Dictionary
 
+const SHOW_GHOST_ON_SELECT := false
+
 signal move_made()
 
 func get_tile_nodes() -> Array[TileNode]:
@@ -57,13 +59,20 @@ func setup_tile_nodes() -> void:
 		tile_node.selected.connect(on_tile_select.bind(tile_node))
 	grid_setup = true
 
+func get_node_for_tile(tile: Tile) -> TileNode:
+	return tile_to_node_map[tile] 
+
+func make_ghost_at_tile_in_dir(tile_node: TileNode, dir: Enums.Direction) -> void:
+	var ghost = TileGhost.new(tile_node)
+	tile_node.add_child(ghost)
+	ghost.move_dir(dir, Config.CELL_WIDTH) # assumes width == height
+
 func on_tile_select(tile_node: TileNode) -> void:
-	print("Tile %s was selected!" % tile_node.name)
-	for dir in Enums.Direction.values():
-		if tile_grid.can_tile_move_dir(tile_node.tile, dir):
-			var ghost = TileGhost.new(tile_node)
-			tile_node.add_child(ghost)
-			ghost.move_dir(dir, Config.CELL_WIDTH) # assumes width == height
+	# print("Tile %s was selected!" % tile_node.name)
+	if SHOW_GHOST_ON_SELECT:
+		for dir in Enums.Direction.values():
+			if tile_grid.can_tile_move_dir(tile_node.tile, dir):
+				make_ghost_at_tile_in_dir(tile_node, dir)
 
 
 func set_grid(grid: TileGrid) -> void:

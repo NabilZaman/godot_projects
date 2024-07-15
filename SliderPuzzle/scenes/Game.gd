@@ -5,6 +5,8 @@ extends Control
 @onready var move_count: Label = %MoveCount
 @onready var blocker: Control = %Blocker
 @onready var thinking_box: Panel = %ThinkingBox
+@onready var hint_button: HintButton = %HintButton
+@onready var fast_solve_button: Button = %DirectSolveButton
 
 var solving: bool
 var solver: Solver
@@ -28,6 +30,13 @@ func _ready() -> void:
 	solve_timer.wait_time = Config.STEP_TIME_SEC
 	solve_timer.timeout.connect(step_solver)
 	grid.move_made.connect(add_move)
+	self.path_finder = AllPathFinder.new(TileGrid.from_state(GridState.from_array(Config.FINAL_SOLUTION_POSITIONS)))
+	WorkerThreadPool.add_task(precompute_paths)
+
+func precompute_paths() -> void:
+	path_finder.compute_all_paths()
+	print("We done it!")
+	enable_knowledge()
 
 func step_solver() -> void:
 	add_move()
@@ -44,20 +53,31 @@ func solve_puzzle_slow() -> void:
 	solve_timer.start()
 
 func solve_puzzle_fast() -> void:
-	self.solve_thread = Thread.new()
 	block_inputs()
-	show_thinking()
-	self.path_finder = AllPathFinder.new(TileGrid.from_state(GridState.from_array(Config.FINAL_SOLUTION_POSITIONS)))
-	solve_thread.start(fast_solve_exec)
-
-func fast_solve_exec() -> void:
-	Thread.set_thread_safety_checks_enabled(false)
-	path_finder.compute_all_paths()
 	var solution: Array[StateTransition] = path_finder.get_path_from_state(grid.tile_grid.dump_state())
 	self.solver = PathSolver.new(grid.tile_grid, solution)
 	print("Ready to show path!")
-	hide_thinking()
 	solve_timer.start()
+
+func fast_solve_exec() -> void:
+	Thread.set_thread_safety_checks_enabled(false)
+	var solution: Array[StateTransition] = path_finder.get_path_from_state(grid.tile_grid.dump_state())
+	self.solver = PathSolver.new(grid.tile_grid, solution)
+	print("Ready to show path!")
+	# hide_thinking()
+	solve_timer.start()
+
+func on_hint_request() -> void:
+	var step := self.path_finder.get_first_step_from_state(grid.tile_grid.dump_state())
+	var tile := grid.tile_grid.get_tile_at_pos(step.tile_pos)
+	var node := grid.get_node_for_tile(tile)
+	grid.make_ghost_at_tile_in_dir(node, step.direction)
+
+func enable_knowledge() -> void:
+	Thread.set_thread_safety_checks_enabled(false)
+	hint_button.enable()
+	fast_solve_button.show()
+
 
 func block_inputs() -> void:
 	solving = true

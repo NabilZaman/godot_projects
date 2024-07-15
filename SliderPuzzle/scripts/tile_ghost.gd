@@ -18,7 +18,7 @@ func setup_reap_timer() -> void:
 func move_dir(dir: Enums.Direction, distance: float) -> void:
     var new_pos := self.global_position + Enums.dir_vector(dir) * distance
     var tween := get_tree().create_tween()
-    tween.tween_property(self, "global_position", new_pos, MOVE_TIME)
+    tween.tween_property(self, "global_position", new_pos, MOVE_TIME).from_current()
     setup_reap_timer()
 
 func _init(template: TileNode) -> void:
