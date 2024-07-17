@@ -107,3 +107,15 @@ func save_game() -> void:
 func load_save_data(data: SaveData) -> void:
     var new_grid: TileGrid = TileGrid.from_state(data.state)
     setup(new_grid, data.move_count, data.difficulty)
+
+func _input(event: InputEvent) -> void:
+    if event.is_released() and event is InputEventKey:
+        if event.keycode == KEY_SPACE:
+            on_hint_request()
+
+func on_win() -> void:
+    # display win message
+    # display confetti effect
+    # show button to return to menu
+    pass
+

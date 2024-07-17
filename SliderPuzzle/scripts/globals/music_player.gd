@@ -53,7 +53,7 @@ func _ready() -> void:
     load_tracks()
     play()
 
-func _input(event: InputEvent) -> void:
-    if event.is_released() and event is InputEventKey and KEY_SPACE == event.keycode:
-        advance_track()
+# func _input(event: InputEvent) -> void:
+#     if event.is_released() and event is InputEventKey and KEY_SPACE == event.keycode:
+#         advance_track()
 

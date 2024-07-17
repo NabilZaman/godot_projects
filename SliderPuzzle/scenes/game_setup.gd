@@ -25,11 +25,11 @@ func setup_from_difficulty(difficulty: Enums.Difficulty) -> Game:
 func choose_path_len_from_difficulty(difficulty: Enums.Difficulty) -> int:
 	match difficulty:
 		Enums.Difficulty.EASY:
-			return rng.randi_range(10, 15)
+			return rng.randi_range(20, 35)
 		Enums.Difficulty.MEDIUM:
-			return rng.randi_range(30, 50)
+			return rng.randi_range(40, 60)
 		Enums.Difficulty.HARD:
-			return rng.randi_range(70, 90)
+			return rng.randi_range(80, 100)
 		Enums.Difficulty.IMPOSSIBLE:
 			return rng.randi_range(120, 140)
 	return 0 # Should never reach here
