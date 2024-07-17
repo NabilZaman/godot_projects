@@ -1,10 +1,9 @@
 class_name StartMenu
 extends CanvasLayer
 
-
-@onready var menu_options = %MenuOptions
-@onready var load_menu = %LoadMenu
-@onready var difficulty_menu = %DifficultyMenu
+@onready var menu_options: VBoxContainer = %MenuOptions
+@onready var load_menu: LoadMenu = %LoadMenu
+@onready var difficulty_menu: DifficultyMenu = %DifficultyMenu
 
 var game_builder = GameSetup.new()
 

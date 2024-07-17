@@ -1,16 +1,20 @@
 class_name SaveEntryPanel
-extends PanelContainer
+extends Panel
 
-@onready var difficulty_label: Label = %Diffiulty
+@onready var difficulty_label: Label = %Difficulty
 @onready var move_count_label: Label = %MoveCount
 @onready var timestamp_label: Label = %Timestamp
 
 var save_data: SaveData
 
 signal selected()
+signal deleted()
 
-func _on_select() -> void:
+func on_select() -> void:
 	selected.emit()
+
+func on_delete() -> void:
+	deleted.emit()
 
 func set_move_count(count: int) -> void:
 	move_count_label.text = "Move %d" % count
@@ -28,4 +32,4 @@ func _ready():
 	set_move_count(save_data.move_count)
 	set_difficulty(save_data.difficulty)
 	set_timestamp(save_data.timestamp)
-	
+

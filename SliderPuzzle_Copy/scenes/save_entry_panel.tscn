@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://c6b7maywcqdjt"]
+[gd_scene load_steps=5 format=3 uid="uid://c6b7maywcqdjt"]
 
 [ext_resource type="Texture2D" uid="uid://0bn4f5uxv8n6" path="res://assets/SaveEntry.png" id="1_mkg6q"]
 [ext_resource type="Script" path="res://scenes/save_entry_panel.gd" id="2_oe4n3"]
+[ext_resource type="Texture2D" uid="uid://bsxayxfb5l4qh" path="res://assets/buttons/CloseButton.png" id="3_gajni"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_30e2q"]
 texture = ExtResource("1_mkg6q")
@@ -10,19 +11,19 @@ texture_margin_top = 5.0
 texture_margin_right = 5.0
 texture_margin_bottom = 5.0
 
-[node name="SaveEntryPanel" type="PanelContainer"]
+[node name="SaveEntryPanel" type="Panel"]
 custom_minimum_size = Vector2(500, 45)
 offset_right = 175.0
 offset_bottom = 45.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_30e2q")
 script = ExtResource("2_oe4n3")
 
-[node name="Button" type="Button" parent="."]
-layout_mode = 2
-flat = true
-
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 495.0
+offset_bottom = 40.0
 theme_override_constants/separation = 15
 
 [node name="Difficulty" type="Label" parent="HBoxContainer"]
@@ -49,4 +50,25 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 20
 text = "2024-10-03 12:42:00"
 
-[connection signal="pressed" from="Button" to="." method="_on_select"]
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 495.0
+offset_bottom = 40.0
+flat = true
+
+[node name="DeleteButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 4.0
+offset_top = -8.0
+scale = Vector2(0.3, 0.3)
+texture_normal = ExtResource("3_gajni")
+
+[connection signal="pressed" from="Button" to="." method="on_select"]
+[connection signal="pressed" from="DeleteButton" to="." method="on_delete"]

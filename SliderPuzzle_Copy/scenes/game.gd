@@ -36,6 +36,8 @@ func _ready() -> void:
     solve_timer.timeout.connect(step_solver)
     grid.move_made.connect(add_move)
     options_menu.return_selected.connect(on_settings_close)
+    options_menu.save_selected.connect(save_game)
+    options_menu.set_game(self)
     setup_password_handler()
 
 func setup_password_handler() -> void:
@@ -94,8 +96,13 @@ func add_move() -> void:
     self.moves_taken += 1
     move_count_label.text = "Moves: %d" % moves_taken
 
-func dump_save_data() -> SaveData:
-    return SaveData.new(tile_grid.dump_state(), moves_taken, difficulty)
+func save_game() -> void:
+    var save_data := SaveData.new(tile_grid.dump_state(), moves_taken, difficulty)
+    var save_name := '%s_%s.res' % [Enums.Difficulty.find_key(difficulty), Time.get_unix_time_from_datetime_string(save_data.timestamp)]
+    var save_path := '%s/%s' % [Config.SAVES_FOLDER, save_name]
+    if not DirAccess.dir_exists_absolute(Config.SAVES_FOLDER):
+        DirAccess.make_dir_absolute(Config.SAVES_FOLDER)
+    ResourceSaver.save(save_data, save_path)
 
 func load_save_data(data: SaveData) -> void:
     var new_grid: TileGrid = TileGrid.from_state(data.state)
