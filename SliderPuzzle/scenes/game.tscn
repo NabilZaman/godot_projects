@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ik1gafa26te8"]
+[gd_scene load_steps=22 format=3 uid="uid://ik1gafa26te8"]
 
 [ext_resource type="Texture2D" uid="uid://cm531nceghims" path="res://assets/background.png" id="1_5my52"]
 [ext_resource type="Texture2D" uid="uid://c23f37mb700dw" path="res://assets/4x5Board.png" id="1_fjbp7"]
@@ -13,18 +13,49 @@
 [ext_resource type="Texture2D" uid="uid://dtx7yon25gnyq" path="res://assets/buttons/HintButtonClicked.png" id="10_acr31"]
 [ext_resource type="Script" path="res://scenes/hint_button.gd" id="10_ppv3t"]
 [ext_resource type="PackedScene" uid="uid://btt0gqxvlo0eg" path="res://scenes/options_menu.tscn" id="13_h3fw3"]
+[ext_resource type="PackedScene" uid="uid://dwje2hpsc7i1l" path="res://scenes/move_count_board.tscn" id="13_ymv4x"]
+[ext_resource type="Texture2D" uid="uid://ch5k2o8t7ek0p" path="res://assets/GoalBox.png" id="15_fmle8"]
+[ext_resource type="Texture2D" uid="uid://td435bksq5j1" path="res://assets/Goal Indicator.png" id="16_mngqa"]
+[ext_resource type="Texture2D" uid="uid://b7m8trw6odmh0" path="res://assets/WinNotification.png" id="17_rg5ds"]
+[ext_resource type="Texture2D" uid="uid://rto816px1vyv" path="res://assets/buttons/AfterWinReturnButton.png" id="18_251ed"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j6jq3"]
-bg_color = Color(0.737119, 0.509245, 0.727546, 1)
-border_width_left = 8
-border_width_top = 8
-border_width_right = 8
-border_width_bottom = 8
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="Animation" id="Animation_fxscg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.784314)]
+}
+
+[sub_resource type="Animation" id="Animation_3xyxb"]
+resource_name = "fade"
+length = 10.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.784314), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qmgub"]
+_data = {
+"RESET": SubResource("Animation_fxscg"),
+"fade": SubResource("Animation_3xyxb")
+}
 
 [node name="Game" type="CanvasLayer"]
 offset = Vector2(-15, -15)
@@ -32,8 +63,11 @@ transform = Transform2D(1, 0, 0, 1, -15, -15)
 script = ExtResource("1_x1wmo")
 
 [node name="Background" type="TextureRect" parent="."]
-offset_right = 1920.0
-offset_bottom = 1080.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("1_5my52")
 
 [node name="GameBoard" type="Control" parent="."]
@@ -182,31 +216,6 @@ text = "PREPARING HINTS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MoveInfoContainer" type="PanelContainer" parent="GameBoard"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_top = 10.0
-grow_horizontal = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="GameBoard/MoveInfoContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
-
-[node name="MoveCount" type="Label" parent="GameBoard/MoveInfoContainer/MarginContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 1
-text = "Moves: 0"
-horizontal_alignment = 1
-
 [node name="Blocker" type="Control" parent="GameBoard"]
 unique_name_in_owner = true
 visible = false
@@ -218,39 +227,202 @@ offset_top = -150.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ThinkingBox" type="Panel" parent="GameBoard"]
+[node name="MoveCountBoard" parent="GameBoard" instance=ExtResource("13_ymv4x")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 5.0
+
+[node name="MoveRemainingBoard" parent="GameBoard" instance=ExtResource("13_ymv4x")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.4
-anchor_right = 1.0
-anchor_bottom = 0.6
-grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_j6jq3")
+offset_right = -30.0
+grow_horizontal = 0
+move_label_text = "Min Moves Left"
 
-[node name="ThinkingLabel" type="Label" parent="GameBoard/ThinkingBox"]
+[node name="GoalIndicator" type="Control" parent="GameBoard"]
+modulate = Color(1, 1, 1, 0.784314)
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -41.5
-offset_right = 150.0
-offset_bottom = 41.5
+anchor_bottom = 1.0
 grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 60
-text = "Thinking..."
-horizontal_alignment = 1
-vertical_alignment = 1
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="GoalBox" type="TextureRect" parent="GameBoard/GoalIndicator"]
+self_modulate = Color(1, 1, 1, 0.588235)
+layout_mode = 1
+anchors_preset = -1
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+texture = ExtResource("15_fmle8")
+
+[node name="GoalLabel" type="TextureRect" parent="GameBoard/GoalIndicator"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -97.5
+offset_right = 97.5
+offset_bottom = 72.0
+grow_horizontal = 2
+mouse_filter = 2
+texture = ExtResource("16_mngqa")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GameBoard/GoalIndicator"]
+libraries = {
+"": SubResource("AnimationLibrary_qmgub")
+}
+autoplay = "fade"
 
 [node name="OptionsMenu" parent="." instance=ExtResource("13_h3fw3")]
 unique_name_in_owner = true
 visible = false
 
+[node name="WinBox" type="TextureRect" parent="."]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -225.0
+offset_top = -60.0
+offset_right = 225.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("17_rg5ds")
+
+[node name="AfterWinExitButton" type="TextureButton" parent="WinBox"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -70.0
+offset_top = -40.0
+offset_right = 70.0
+grow_horizontal = 2
+grow_vertical = 0
+texture_normal = ExtResource("18_251ed")
+
+[node name="WinnerConfettiLeftBlue" type="CPUParticles2D" parent="WinBox"]
+position = Vector2(0, 120)
+amount = 30
+lifetime = 6.0
+direction = Vector2(0.259, -0.966)
+spread = 10.0
+gravity = Vector2(0, 90)
+initial_velocity_min = 171.29
+initial_velocity_max = 219.11
+scale_amount_min = 4.0
+scale_amount_max = 8.0
+color = Color(0.396078, 0.396078, 0.988235, 1)
+
+[node name="WinnerConfettiLeftGreen" type="CPUParticles2D" parent="WinBox"]
+position = Vector2(0, 120)
+amount = 30
+lifetime = 6.0
+direction = Vector2(0.5, -0.866)
+spread = 10.0
+gravity = Vector2(0, 90)
+initial_velocity_min = 171.29
+initial_velocity_max = 219.11
+scale_amount_min = 4.0
+scale_amount_max = 8.0
+color = Color(0.4, 1, 0.4, 1)
+
+[node name="WinnerConfettiLeftRed" type="CPUParticles2D" parent="WinBox"]
+position = Vector2(0, 120)
+amount = 30
+lifetime = 6.0
+direction = Vector2(0.5, -0.866)
+spread = 10.0
+gravity = Vector2(0, 90)
+initial_velocity_min = 171.29
+initial_velocity_max = 219.11
+scale_amount_min = 4.0
+scale_amount_max = 8.0
+color = Color(1, 0.4, 0.4, 1)
+
+[node name="WinnerConfettiLeftYellow" type="CPUParticles2D" parent="WinBox"]
+position = Vector2(0, 120)
+amount = 30
+lifetime = 6.0
+direction = Vector2(0.5, -0.866)
+spread = 10.0
+gravity = Vector2(0, 90)
+initial_velocity_min = 171.29
+initial_velocity_max = 219.11
+scale_amount_min = 4.0
+scale_amount_max = 8.0
+color = Color(1, 0.98, 0.4, 1)
+
+[node name="WinnerConfettiRightBlue" type="CPUParticles2D" parent="WinBox"]
+position = Vector2(450, 120)
+amount = 30
+lifetime = 6.0
+direction = Vector2(-0.259, -0.966)
+spread = 10.0
+gravity = Vector2(0, 90)
+initial_velocity_min = 171.29
+initial_velocity_max = 219.11
+scale_amount_min = 4.0
+scale_amount_max = 8.0
+color = Color(0.396078, 0.396078, 0.988235, 1)
+
+[node name="WinnerConfettiRightGreen" type="CPUParticles2D" parent="WinBox"]
+position = Vector2(450, 120)
+amount = 30
+lifetime = 6.0
+direction = Vector2(-0.259, -0.866)
+spread = 10.0
+gravity = Vector2(0, 90)
+initial_velocity_min = 171.29
+initial_velocity_max = 219.11
+scale_amount_min = 4.0
+scale_amount_max = 8.0
+color = Color(0.4, 1, 0.4, 1)
+
+[node name="WinnerConfettiRightRed" type="CPUParticles2D" parent="WinBox"]
+position = Vector2(450, 120)
+amount = 30
+lifetime = 6.0
+direction = Vector2(-0.259, -0.866)
+spread = 10.0
+gravity = Vector2(0, 90)
+initial_velocity_min = 171.29
+initial_velocity_max = 219.11
+scale_amount_min = 4.0
+scale_amount_max = 8.0
+color = Color(1, 0.4, 0.4, 1)
+
+[node name="WinnerConfettiRightYellow" type="CPUParticles2D" parent="WinBox"]
+position = Vector2(450, 120)
+amount = 30
+lifetime = 6.0
+direction = Vector2(-0.259, -0.866)
+spread = 10.0
+gravity = Vector2(0, 90)
+initial_velocity_min = 171.29
+initial_velocity_max = 219.11
+scale_amount_min = 4.0
+scale_amount_max = 8.0
+color = Color(1, 0.98, 0.4, 1)
+
 [connection signal="pressed" from="GameBoard/SettingsButton" to="." method="on_settings"]
 [connection signal="pressed" from="GameBoard/DirectSolveButton" to="." method="solve_puzzle_fast"]
 [connection signal="pressed" from="GameBoard/HintButton" to="." method="on_hint_request"]
+[connection signal="pressed" from="WinBox/AfterWinExitButton" to="." method="return_to_menu"]

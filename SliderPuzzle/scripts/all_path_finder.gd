@@ -31,10 +31,6 @@ func record_path(state_array: Array[Vector2i], path: Array[StateTransition]) -> 
 	if path_len not in path_len_counts:
 		path_len_counts[path_len] = 0
 	path_len_counts[path_len] += 1
-	# var num_paths_of_this_len = path_len_counts[path_len]
-
-	# with 1 / n odds, record this path in the random paths dict
-	# if num_paths_of_this_len == 1 or rng.randf() < (1.0 / num_paths_of_this_len):
 
 func enqueue_neighboring_states() -> void:
 	var cur_state = grid.dump_state()
@@ -123,6 +119,9 @@ func get_path_from_state(target_state: GridState) -> Array[StateTransition]:
 		rev_path.append(StateTransition.new(null, final_tile.pos, rev_dir))
 	rev_path.reverse()
 	return rev_path
+
+func get_length_to_state(target_state: GridState) -> int:
+	return get_path_to_state(target_state).size()
 
 func _init(grid: TileGrid = null) -> void:
 	self.grid = grid

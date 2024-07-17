@@ -8,7 +8,7 @@ var player: AudioStreamPlayer
 @onready var tracks_paths: Array[String] = [
     "res://assets/music/wondrous-waters-119518.mp3",
     "res://assets/music/monday-marimba-194523.mp3",
-    "res://assets/music/marimba-dreams-soft-melodies-for-blissful-relaxation-129357.mp3",
+    # "res://assets/music/marimba-dreams-soft-melodies-for-blissful-relaxation-129357.mp3",
 ]
 
 var tracks: Array[AudioStream]
@@ -20,7 +20,6 @@ func advance_track() -> void:
     cur_track = (cur_track + 1) % tracks.size()
     stop()
     play()
-    # update the player
 
 # Takes a volume flaot 0 and 1
 func set_volume(volume: float) -> void:
@@ -28,7 +27,6 @@ func set_volume(volume: float) -> void:
     player.volume_db = db_value
 
 func play() -> void:
-    print("Playing music")
     if cur_track >= len(tracks):
         return
     player.stream = tracks[cur_track]

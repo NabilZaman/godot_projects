@@ -125,8 +125,7 @@ func has_won() -> bool:
     return four_tile.pos == Vector2i(1, 3)
 
 # Returns a new TileGrid
-func copy() -> TileGrid:
-    print("Copying!")
+func copy() -> TileGrid: # Unused, consider deleting
     var new_tiles: Array[Tile] = []
     for tile in get_tiles():
         new_tiles.append(tile.copy())

@@ -2,9 +2,10 @@ class_name Game
 extends CanvasLayer
 
 @onready var grid: GridNode = %GridNode
-@onready var move_count_label: Label = %MoveCount
 @onready var blocker: Control = %Blocker
-@onready var thinking_box: Panel = %ThinkingBox
+@onready var win_notification: Control = %WinBox
+@onready var move_count_board: MoveCountBoard = %MoveCountBoard
+@onready var moves_remaining_board: MoveCountBoard = %MoveRemainingBoard
 @onready var hint_button: HintButton = %HintButton
 @onready var fast_solve_button: Button = %DirectSolveButton
 @onready var options_menu: OptionsMenu = %OptionsMenu
@@ -37,7 +38,10 @@ func _ready() -> void:
     grid.move_made.connect(add_move)
     options_menu.return_selected.connect(on_settings_close)
     options_menu.save_selected.connect(save_game)
+    options_menu.menu_selected.connect(return_to_menu)
     options_menu.set_game(self)
+    update_move_count()
+    update_moves_remaining()
     setup_password_handler()
 
 func setup_password_handler() -> void:
@@ -47,6 +51,7 @@ func setup_password_handler() -> void:
 
 func on_password() -> void:
     fast_solve_button.show()
+    moves_remaining_board.show()
 
 func step_solver() -> void:
     add_move()
@@ -86,15 +91,23 @@ func block_inputs() -> void:
 func allow_inputs() -> void:
     blocker.hide()
 
-func show_thinking() -> void:
-    thinking_box.show()
-
-func hide_thinking() -> void:
-    thinking_box.hide()
-
 func add_move() -> void:
     self.moves_taken += 1
-    move_count_label.text = "Moves: %d" % moves_taken
+    update_move_count()
+    update_moves_remaining()
+    if tile_grid.has_won():
+        on_win()
+
+func update_move_count() -> void:
+    move_count_board.update_moves(moves_taken)
+
+func update_moves_remaining() -> void:
+    moves_remaining_board.update_moves(path_finder.get_length_to_state(tile_grid.dump_state()))
+
+func return_to_menu() -> void:
+    var main_menu: StartMenu = load('res://scenes/StartMenu.tscn').instantiate() as StartMenu
+    self.queue_free()
+    get_tree().root.add_child(main_menu)
 
 func save_game() -> void:
     var save_data := SaveData.new(tile_grid.dump_state(), moves_taken, difficulty)
@@ -114,8 +127,6 @@ func _input(event: InputEvent) -> void:
             on_hint_request()
 
 func on_win() -> void:
-    # display win message
-    # display confetti effect
-    # show button to return to menu
-    pass
+    block_inputs()
+    win_notification.show()
 
