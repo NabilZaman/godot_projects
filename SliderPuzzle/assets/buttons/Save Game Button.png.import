@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bsinhq0ym238v"
-path="res://.godot/imported/2V-tile.png-d460f0c3cff565a10d98cd97c70e0fcb.ctex"
+uid="uid://5s7vipoyyslo"
+path="res://.godot/imported/Save Game Button.png-0288cee5e01026b2b5a35ffac77b76fb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/2V-tile.png"
-dest_files=["res://.godot/imported/2V-tile.png-d460f0c3cff565a10d98cd97c70e0fcb.ctex"]
+source_file="res://assets/buttons/Save Game Button.png"
+dest_files=["res://.godot/imported/Save Game Button.png-0288cee5e01026b2b5a35ffac77b76fb.ctex"]
 
 [params]
 

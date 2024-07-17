@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://iee5tbc1dqrk"
-path="res://.godot/imported/4-tile.png-527a6d0a33851283dd2e6d2af2c0f850.ctex"
+uid="uid://bd5vuc8oagd3x"
+path="res://.godot/imported/MoveCounter_3digits.png-a03367a6971d8fef93d260110166eaad.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/4-tile.png"
-dest_files=["res://.godot/imported/4-tile.png-527a6d0a33851283dd2e6d2af2c0f850.ctex"]
+source_file="res://assets/MoveCounter_3digits.png"
+dest_files=["res://.godot/imported/MoveCounter_3digits.png-a03367a6971d8fef93d260110166eaad.ctex"]
 
 [params]
 

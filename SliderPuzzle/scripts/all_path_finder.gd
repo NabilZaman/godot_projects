@@ -2,11 +2,16 @@ class_name AllPathFinder
 extends Resource
 
 var grid: TileGrid
+var initial_state_array = Config.FINAL_SOLUTION_POSITIONS
+
+var rng = RandomNumberGenerator.new()
 
 ## Used to solve the puzzle
 # map from GridState array -> shortest path to that state (Array[StateTransition])
-var shortest_paths: Dictionary = {}
+@export var shortest_paths: Dictionary = {}
 var queue: Deque
+
+@export var path_len_counts: Dictionary = {}
 
 const LOG_PROGRESS := true
 
@@ -18,7 +23,14 @@ func enqueue_neighbor_if_new(neighbor: GridState, cur_state: GridState, tile_pos
 		var transition := StateTransition.new(cur_state, tile_pos, direction)
 		var new_path := path_here.duplicate()
 		new_path.append(transition)
-		shortest_paths[neighbor_array] = new_path
+		record_path(neighbor_array, new_path)
+
+func record_path(state_array: Array[Vector2i], path: Array[StateTransition]) -> void:
+	shortest_paths[state_array] = path
+	var path_len = path.size()
+	if path_len not in path_len_counts:
+		path_len_counts[path_len] = 0
+	path_len_counts[path_len] += 1
 
 func enqueue_neighboring_states() -> void:
 	var cur_state = grid.dump_state()
@@ -58,8 +70,27 @@ func compute_all_paths() -> void:
 
 	print("Found all paths in %.2f seconds!" % (Time.get_unix_time_from_system() - start_time))
 
+func get_random_state_n_steps_away(n: int) -> GridState:
+	var rand_index: int = rng.randi_range(0, path_len_counts[n])
+	var rand_path: Array[StateTransition] = []
+	for path in shortest_paths.values():
+		if path.size() == n:
+			if rand_index == 0:
+				rand_path.assign(path)
+				break
+			else:
+				rand_index -= 1
+	var rand_grid := TileGrid.from_state(GridState.from_array(initial_state_array))
+	for transition in rand_path:
+		rand_grid.get_tile_at_pos(transition.tile_pos).move_dir(transition.direction)
+	return rand_grid.dump_state()
+
 func get_first_step_from_state(target_state: GridState) -> StateTransition:
-	return get_path_from_state(target_state)[0]
+	var path_from_state := get_path_from_state(target_state)
+	if path_from_state.is_empty():
+		return null
+	else:
+		return path_from_state[0]
 
 # Determine if we've computed the path to a given state yet
 func has_path_to_state(target_state: GridState) -> bool:
@@ -67,17 +98,16 @@ func has_path_to_state(target_state: GridState) -> bool:
 
 # Get the shortest path to a given state from the initial state
 func get_path_to_state(target_state: GridState) -> Array[StateTransition]:
-	return shortest_paths[target_state.as_array()]
+	var path: Array[StateTransition] = []
+	if not has_path_to_state(target_state):
+		return path
+	path.assign(shortest_paths[target_state.as_array()])
+	return path
 
 # Get the shortest path to the initial state from the given state
 # We do this by finding the shortest path there and reversing it
 func get_path_from_state(target_state: GridState) -> Array[StateTransition]:
-	print("Looking up shortest path")
 	var forward_path := get_path_to_state(target_state)
-	# for transition in forward_path:
-	# 	print(transition.tile_index, "->", transition.direction)
-	# print("==========")
-	# Reverse the path of state transitions
 	var rev_path: Array[StateTransition] = []
 	for i in range(forward_path.size()):
 		var forward_step := forward_path[i]
@@ -88,14 +118,16 @@ func get_path_from_state(target_state: GridState) -> Array[StateTransition]:
 		# The initial states are not needed to follow the path so we don't bother building them
 		rev_path.append(StateTransition.new(null, final_tile.pos, rev_dir))
 	rev_path.reverse()
-	# for transition in rev_path:
-	# 	print(transition.tile_index, "->", transition.direction)
-	print("revsersed the path!")
 	return rev_path
 
-func _init(grid: TileGrid) -> void:
+func get_length_to_state(target_state: GridState) -> int:
+	return get_path_to_state(target_state).size()
+
+func _init(grid: TileGrid = null) -> void:
 	self.grid = grid
-	var cur_state := grid.dump_state()
-	self.queue = Deque.new()
-	self.queue.append(cur_state)
-	self.shortest_paths[cur_state.as_array()] = []
+	if grid != null:
+		var cur_state := grid.dump_state()
+		self.queue = Deque.new()
+		self.queue.append(cur_state)
+		var empty_path: Array[StateTransition] = []
+		record_path(cur_state.as_array(), empty_path)

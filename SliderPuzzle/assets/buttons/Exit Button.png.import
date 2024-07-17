@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xh1f5n1xmasm"
-path="res://.godot/imported/2H-tile.png-15460a891d6e6847fcc4aa6f2afa0fa1.ctex"
+uid="uid://be57tjkkijnui"
+path="res://.godot/imported/Exit Button.png-50774b226af3348af6aedc10b686eaef.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/2H-tile.png"
-dest_files=["res://.godot/imported/2H-tile.png-15460a891d6e6847fcc4aa6f2afa0fa1.ctex"]
+source_file="res://assets/buttons/Exit Button.png"
+dest_files=["res://.godot/imported/Exit Button.png-50774b226af3348af6aedc10b686eaef.ctex"]
 
 [params]
 

@@ -10,8 +10,8 @@ const ROWS := 5
 # 1 yellow 2 x 1 piece
 # 4 yellow 1 x 2 pieces
 # 4 blue 1 x 1 pieces
-var tiles: Array[Tile]
-var four_tile: FourTile
+@export var tiles: Array[Tile]
+@export var four_tile: FourTile
 
 func get_tiles() -> Array[Tile]:
     return tiles
@@ -24,7 +24,6 @@ func get_tile_at_pos(pos: Vector2i) -> Tile:
         if tile.pos == pos:
             return tile
     return null
-
 
 func is_occupied(pos: Vector2i) -> bool:
     for child in get_tiles():
@@ -126,8 +125,7 @@ func has_won() -> bool:
     return four_tile.pos == Vector2i(1, 3)
 
 # Returns a new TileGrid
-func copy() -> TileGrid:
-    print("Copying!")
+func copy() -> TileGrid: # Unused, consider deleting
     var new_tiles: Array[Tile] = []
     for tile in get_tiles():
         new_tiles.append(tile.copy())

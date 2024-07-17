@@ -1,0 +1,97 @@
+[gd_scene load_steps=12 format=3 uid="uid://btt0gqxvlo0eg"]
+
+[ext_resource type="Script" path="res://scenes/OptionsMenu.gd" id="1_vc83s"]
+[ext_resource type="Texture2D" uid="uid://5s7vipoyyslo" path="res://assets/buttons/Save Game Button.png" id="2_4rr5f"]
+[ext_resource type="Texture2D" uid="uid://cjumecai6ngnk" path="res://assets/icons/MusicIcon.png" id="2_ypof3"]
+[ext_resource type="Texture2D" uid="uid://cxvoh602bs41" path="res://assets/buttons/Save Game Button Clicked.png" id="3_4c3gp"]
+[ext_resource type="Texture2D" uid="uid://dmt1cly63mxdc" path="res://assets/buttons/Load Game Button.png" id="4_efvf1"]
+[ext_resource type="Texture2D" uid="uid://cee1h0bor46q0" path="res://assets/buttons/Load Game Button Clicked.png" id="5_nxd4r"]
+[ext_resource type="Texture2D" uid="uid://76jn64710vdt" path="res://assets/buttons/Return to Menu Button.png" id="6_60xpv"]
+[ext_resource type="Texture2D" uid="uid://bmc8jnsewuaui" path="res://assets/buttons/Return to Menu Button Clicked.png" id="7_ej0cw"]
+[ext_resource type="Texture2D" uid="uid://bl381kh5qgn6k" path="res://assets/buttons/Return to Game Button.png" id="8_co0tn"]
+[ext_resource type="Texture2D" uid="uid://cir1milf7qu47" path="res://assets/buttons/Return to Game Button Clicked.png" id="9_e0n7q"]
+[ext_resource type="PackedScene" uid="uid://tjwdqk8bgbva" path="res://scenes/load_menu.tscn" id="10_atmae"]
+
+[node name="OptionsMenu" type="Control"]
+layout_mode = 3
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_bottom = -200.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vc83s")
+
+[node name="MenuOptions" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+offset_left = -241.5
+offset_top = -281.5
+offset_right = 241.5
+offset_bottom = 281.5
+theme_override_constants/separation = -95
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuOptions"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="MenuOptions/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("2_ypof3")
+
+[node name="HSlider" type="HSlider" parent="MenuOptions/HBoxContainer"]
+custom_minimum_size = Vector2(0, 280)
+layout_mode = 2
+size_flags_horizontal = 3
+value = 100.0
+
+[node name="SaveButton" type="TextureButton" parent="MenuOptions"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("2_4rr5f")
+texture_pressed = ExtResource("3_4c3gp")
+
+[node name="LoadButton" type="TextureButton" parent="MenuOptions"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("4_efvf1")
+texture_pressed = ExtResource("5_nxd4r")
+
+[node name="MenuButton" type="TextureButton" parent="MenuOptions"]
+custom_minimum_size = Vector2(0, 212)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("6_60xpv")
+texture_pressed = ExtResource("7_ej0cw")
+
+[node name="CloseButton" type="TextureButton" parent="MenuOptions"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("8_co0tn")
+texture_pressed = ExtResource("9_e0n7q")
+
+[node name="LoadMenu" parent="." instance=ExtResource("10_atmae")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -322.0
+offset_top = -250.0
+offset_right = 322.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="value_changed" from="MenuOptions/HBoxContainer/HSlider" to="." method="volume_adjusted"]
+[connection signal="pressed" from="MenuOptions/SaveButton" to="." method="on_save"]
+[connection signal="pressed" from="MenuOptions/LoadButton" to="." method="on_load"]
+[connection signal="pressed" from="MenuOptions/MenuButton" to="." method="on_menu_nav"]
+[connection signal="pressed" from="MenuOptions/CloseButton" to="." method="on_return"]

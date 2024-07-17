@@ -35,8 +35,6 @@ func _rebalance():
     var excess_elements_in_front = _front.size() - target_elements_in_front
     var excess_elements_in_back = _back.size() - target_elements_in_back
     
-    # print(target_elements_in_back, target_elements_in_front, excess_elements_in_back, excess_elements_in_front)
-
     # first copy any excess elements in the _back, into the new _front, looping backwards
     for i in range(excess_elements_in_back - 1,  -1, -1):
         new_front.append(_back[i])

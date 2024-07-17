@@ -12,7 +12,7 @@ config_version=5
 
 config/name="SliderPuzzle"
 config/version="0.1"
-run/main_scene="res://scenes/game.tscn"
+run/main_scene="res://scenes/StartMenu.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 
 Enums="*res://scripts/globals/enums.gd"
 Config="*res://scripts/globals/config.gd"
+MusicPlayer="*res://scripts/globals/music_player.gd"
 
 [debug]
 
@@ -35,6 +36,15 @@ window/stretch/mode="canvas_items"
 [editor_plugins]
 
 enabled=PackedStringArray()
+
+[input]
+
+ui_accept={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194309,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194310,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
+}
 
 [rendering]
 

@@ -1,8 +1,7 @@
 class_name Tile
 extends Resource
 
-var pos: Vector2i
-var grid: TileGrid # TODO move this parent ref
+@export var pos: Vector2i
 
 var am_selected := false
 var selected_pos: Vector2
@@ -40,7 +39,6 @@ func copy() -> Tile:
     var new_pos := Vector2i(pos)
     return Tile.new(new_pos)
 
-func _init(pos: Vector2i) -> void:
+func _init(pos: Vector2i = Vector2i()) -> void:
     self.pos = pos
-    self.grid = null
 

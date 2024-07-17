@@ -1,0 +1,95 @@
+[gd_scene load_steps=11 format=3 uid="uid://drku2da2bbnw"]
+
+[ext_resource type="Script" path="res://scenes/StartMenu.gd" id="1_bxmjt"]
+[ext_resource type="Texture2D" uid="uid://cm531nceghims" path="res://assets/background.png" id="2_rudtq"]
+[ext_resource type="Texture2D" uid="uid://c4fmf67cb2xb2" path="res://assets/buttons/New Button.png" id="3_bcv6p"]
+[ext_resource type="Texture2D" uid="uid://crfsi3b2o4l2w" path="res://assets/buttons/New Button Clicked.png" id="4_fg0ta"]
+[ext_resource type="Texture2D" uid="uid://brhxojjlsx34d" path="res://assets/buttons/Continue Button.png" id="5_ldydd"]
+[ext_resource type="Texture2D" uid="uid://djfdwkyh7m4hl" path="res://assets/buttons/Continue Button Clicked.png" id="6_raxgj"]
+[ext_resource type="Texture2D" uid="uid://be57tjkkijnui" path="res://assets/buttons/Exit Button.png" id="7_0jbs2"]
+[ext_resource type="Texture2D" uid="uid://cej5ygo8ibdoc" path="res://assets/buttons/Exit Button Clicked.png" id="8_yogrk"]
+[ext_resource type="PackedScene" uid="uid://tjwdqk8bgbva" path="res://scenes/load_menu.tscn" id="9_rmx7v"]
+[ext_resource type="PackedScene" uid="uid://d3ng7e8pcqr5y" path="res://scenes/DifficultyMenu.tscn" id="10_phjn6"]
+
+[node name="StartMenu" type="CanvasLayer"]
+script = ExtResource("1_bxmjt")
+
+[node name="StartMenu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="StartMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_rudtq")
+
+[node name="MenuOptions" type="VBoxContainer" parent="StartMenu"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -241.5
+offset_top = -281.5
+offset_right = 241.5
+offset_bottom = 281.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = -95
+alignment = 1
+
+[node name="NewGameButton" type="TextureButton" parent="StartMenu/MenuOptions"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("3_bcv6p")
+texture_pressed = ExtResource("4_fg0ta")
+
+[node name="ContinueButton" type="TextureButton" parent="StartMenu/MenuOptions"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("5_ldydd")
+texture_pressed = ExtResource("6_raxgj")
+
+[node name="ExitButton" type="TextureButton" parent="StartMenu/MenuOptions"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("7_0jbs2")
+texture_pressed = ExtResource("8_yogrk")
+
+[node name="LoadMenu" parent="StartMenu" instance=ExtResource("9_rmx7v")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DifficultyMenu" parent="StartMenu" instance=ExtResource("10_phjn6")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="pressed" from="StartMenu/MenuOptions/NewGameButton" to="." method="on_new"]
+[connection signal="pressed" from="StartMenu/MenuOptions/ContinueButton" to="." method="on_continue"]
+[connection signal="pressed" from="StartMenu/MenuOptions/ExitButton" to="." method="on_exit"]

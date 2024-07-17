@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dtx7yon25gnyq"
-path="res://.godot/imported/HintButtonClicked.png-291b0e0f5aa01bfed6f680396fc8060b.ctex"
+uid="uid://pgvfxopy20t8"
+path="res://.godot/imported/Classic Game Button.png-ec825d73c373e90a73729b237255901b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/HintButtonClicked.png"
-dest_files=["res://.godot/imported/HintButtonClicked.png-291b0e0f5aa01bfed6f680396fc8060b.ctex"]
+source_file="res://assets/buttons/Classic Game Button.png"
+dest_files=["res://.godot/imported/Classic Game Button.png-ec825d73c373e90a73729b237255901b.ctex"]
 
 [params]
 

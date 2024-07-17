@@ -6,7 +6,7 @@ extends Resource
 # 1 yellow 2 x 1 piece
 # 4 yellow 1 x 2 pieces
 # 4 blue 1 x 1 pieces
-var positions: Array[Vector2i]
+@export var positions: Array[Vector2i]
 
 # partially sorts the array in place
 static func sort_dupes(positions: Array[Vector2i]) -> void:
@@ -28,5 +28,5 @@ func as_array(normalize: bool = true) -> Array[Vector2i]:
         GridState.sort_dupes(result)
     return result
 
-func _init(positions: Array[Vector2i]) -> void:
+func _init(positions: Array[Vector2i] = []) -> void:
     self.positions = positions

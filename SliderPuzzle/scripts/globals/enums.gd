@@ -27,3 +27,5 @@ func dir_vector(dir: Direction) -> Vector2i:
             return Vector2i(0, 1)
     return Vector2i(0, 0) # Should never reach this line
 
+enum Difficulty {CLASSIC, EASY, MEDIUM, HARD, IMPOSSIBLE}
+

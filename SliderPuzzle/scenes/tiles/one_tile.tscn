@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ee1lisrt8kdd"]
 
-[ext_resource type="Texture2D" uid="uid://c2rhstjur1ejx" path="res://assets/1-tile.png" id="1_ngeou"]
+[ext_resource type="Texture2D" uid="uid://c2rhstjur1ejx" path="res://assets/tiles/1-tile.png" id="1_ngeou"]
 [ext_resource type="Script" path="res://scenes/tiles/tile_node.gd" id="2_gf16d"]
 
 [node name="OneTileA" type="TextureButton"]

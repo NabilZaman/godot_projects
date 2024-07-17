@@ -1,10 +1,15 @@
 # class_name Config # Named in autoload
 extends Node
 
+const SOLUTIONS_RESOURCE_PATH = 'res://puzzle_paths_cache.res'
+const SAVES_FOLDER = 'user://saves/'
+
 const STEP_TIME_SEC = 0.10
 
 const CELL_HEIGHT := 100
 const CELL_WIDTH := 100
+
+const SOLUTION_PASSWORD = "ILLUSIONS"
 
 func grid_to_global_pos(grid_pos: Vector2i) -> Vector2:
     return Vector2(grid_pos.x * CELL_WIDTH, grid_pos.y * CELL_HEIGHT)
