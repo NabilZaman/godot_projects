@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://c6b7maywcqdjt"]
+
+[ext_resource type="Texture2D" uid="uid://0bn4f5uxv8n6" path="res://assets/SaveEntry.png" id="1_mkg6q"]
+[ext_resource type="Script" path="res://scenes/save_entry_panel.gd" id="2_oe4n3"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_30e2q"]
+texture = ExtResource("1_mkg6q")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[node name="SaveEntryPanel" type="PanelContainer"]
+custom_minimum_size = Vector2(500, 45)
+offset_right = 175.0
+offset_bottom = 45.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_30e2q")
+script = ExtResource("2_oe4n3")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+flat = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Difficulty" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Easy"
+
+[node name="MoveCount" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Move 10"
+
+[node name="Timestamp" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "2024-10-03 12:42:00"
+
+[connection signal="pressed" from="Button" to="." method="_on_select"]
