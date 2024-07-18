@@ -58,8 +58,6 @@ _data = {
 }
 
 [node name="Game" type="CanvasLayer"]
-offset = Vector2(-15, -15)
-transform = Transform2D(1, 0, 0, 1, -15, -15)
 script = ExtResource("1_x1wmo")
 
 [node name="Background" type="TextureRect" parent="."]
@@ -240,7 +238,7 @@ unique_name_in_owner = true
 visible = false
 layout_mode = 1
 anchors_preset = -1
-offset_right = -30.0
+offset_right = -25.0
 grow_horizontal = 0
 move_label_text = "Min Moves Left"
 

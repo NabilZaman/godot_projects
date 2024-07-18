@@ -11,10 +11,14 @@ config_version=5
 [application]
 
 config/name="SliderPuzzle"
-config/version="0.1"
+config/version="1.0.0.0"
 run/main_scene="res://scenes/StartMenu.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
-config/icon="res://icon.svg"
+boot_splash/image="res://LogoV1.png"
+boot_splash/fullsize=false
+config/icon="res://assets/tiles/4-tile.png"
+config/windows_native_icon="res://icon.ico"
+boot_splash/minimum_display_time=1500
 
 [autoload]
 
@@ -31,11 +35,16 @@ gdscript/warnings/integer_division=0
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/stretch/mode="canvas_items"
+window/size/mode=2
+window/stretch/mode="viewport"
 
 [editor_plugins]
 
 enabled=PackedStringArray()
+
+[filesystem]
+
+import/blender/enabled=false
 
 [input]
 

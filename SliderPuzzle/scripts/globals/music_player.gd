@@ -6,9 +6,8 @@ const MUSIC_BUS = "Music"
 var player: AudioStreamPlayer
 
 @onready var tracks_paths: Array[String] = [
-    "res://assets/music/wondrous-waters-119518.mp3",
-    "res://assets/music/monday-marimba-194523.mp3",
-    # "res://assets/music/marimba-dreams-soft-melodies-for-blissful-relaxation-129357.mp3",
+    'res://assets/music/track1.mp3',
+    'res://assets/music/track2.mp3'
 ]
 
 var tracks: Array[AudioStream]
@@ -37,10 +36,7 @@ func stop() -> void:
 
 func load_tracks() -> void:
     for path in tracks_paths:
-        var file = FileAccess.open(path, FileAccess.READ)
-        var stream = AudioStreamMP3.new()
-        stream.data = file.get_buffer(file.get_length())
-        tracks.append(stream)
+        tracks.append(load(path))
 
 func _ready() -> void:
     self.player = AudioStreamPlayer.new()

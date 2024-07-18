@@ -8,7 +8,6 @@ extends CanvasLayer
 var game_builder = GameSetup.new()
 
 func on_new() -> void:
-	print("New gaming!")
 	menu_options.hide()
 	difficulty_menu.show()
 
