@@ -58,8 +58,6 @@ _data = {
 }
 
 [node name="Game" type="CanvasLayer"]
-offset = Vector2(-15, -15)
-transform = Transform2D(1, 0, 0, 1, -15, -15)
 script = ExtResource("1_x1wmo")
 
 [node name="Background" type="TextureRect" parent="."]
