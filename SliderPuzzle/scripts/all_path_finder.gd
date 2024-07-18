@@ -83,6 +83,8 @@ func get_random_state_n_steps_away(n: int) -> GridState:
 	var rand_grid := TileGrid.from_state(GridState.from_array(initial_state_array))
 	for transition in rand_path:
 		rand_grid.get_tile_at_pos(transition.tile_pos).move_dir(transition.direction)
+	if rand_grid.has_won():
+		return get_random_state_n_steps_away(n) # blindly recurse and hope for the best
 	return rand_grid.dump_state()
 
 func get_first_step_from_state(target_state: GridState) -> StateTransition:
