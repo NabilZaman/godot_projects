@@ -1,0 +1,36 @@
+[gd_scene load_steps=8 format=3 uid="uid://bfhifnxn1owqy"]
+
+[ext_resource type="Shader" path="res://scenes/shaders_test.gdshader" id="1_d7t3j"]
+[ext_resource type="Texture2D" uid="uid://d21dxq2l47ief" path="res://assets/shutterstock_76166707.jpg" id="2_k3d5u"]
+[ext_resource type="Texture2D" uid="uid://dt51ylddcgiqh" path="res://assets/BlackHole.png" id="3_xidjv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_18g2o"]
+shader = ExtResource("1_d7t3j")
+shader_parameter/strength = 0.5
+
+[sub_resource type="Curve" id="Curve_36tlb"]
+min_value = -1.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 0.00425541), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ts37h"]
+curve = SubResource("Curve_36tlb")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ao7mj"]
+shader = ExtResource("1_d7t3j")
+shader_parameter/strength = 0.015
+shader_parameter/distortionCurve = SubResource("CurveTexture_ts37h")
+
+[node name="ShadersTest" type="Node2D"]
+material = SubResource("ShaderMaterial_18g2o")
+position = Vector2(747, 256)
+
+[node name="background" type="Sprite2D" parent="."]
+position = Vector2(298, -26)
+texture = ExtResource("2_k3d5u")
+
+[node name="Hole" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ao7mj")
+position = Vector2(473, 70)
+scale = Vector2(5, 5)
+texture = ExtResource("3_xidjv")

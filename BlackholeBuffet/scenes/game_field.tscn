@@ -1,0 +1,42 @@
+[gd_scene load_steps=9 format=3 uid="uid://cnohawtxj3a3w"]
+
+[ext_resource type="Texture2D" uid="uid://16ng1owbdsni" path="res://assets/SpaceBackground.png" id="1_6lehr"]
+[ext_resource type="Script" path="res://scenes/star_field.gd" id="2_fe6ax"]
+[ext_resource type="Texture2D" uid="uid://dt51ylddcgiqh" path="res://assets/BlackHole.png" id="3_iveyo"]
+[ext_resource type="Shader" path="res://scenes/shaders_test.gdshader" id="3_s308g"]
+[ext_resource type="Script" path="res://scenes/player_black_hole.gd" id="3_sr3b1"]
+
+[sub_resource type="Curve" id="Curve_36tlb"]
+min_value = -1.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 0.00425541), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ts37h"]
+curve = SubResource("Curve_36tlb")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ao7mj"]
+shader = ExtResource("3_s308g")
+shader_parameter/strength = 0.015
+shader_parameter/distortionCurve = SubResource("CurveTexture_ts37h")
+
+[node name="GameField" type="Node2D"]
+
+[node name="SpaceBackground" type="Sprite2D" parent="."]
+texture = ExtResource("1_6lehr")
+centered = false
+
+[node name="StarField" type="Node2D" parent="SpaceBackground"]
+script = ExtResource("2_fe6ax")
+STAR_CHANCE = 0.5
+
+[node name="PlayerBlackHole" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_ao7mj")
+position = Vector2(960, 540)
+scale = Vector2(20, 20)
+texture = ExtResource("3_iveyo")
+script = ExtResource("3_sr3b1")
+
+[node name="BlackHole" type="Sprite2D" parent="PlayerBlackHole"]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("3_iveyo")
